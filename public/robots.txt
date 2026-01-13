@@ -1,0 +1,45 @@
+
+# BeaconAI Robots.txt - Enhanced for search engine optimization
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://beaconai.consulting/sitemap.xml
+
+# Specific directives for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 2
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Disallow specific private paths
+Disallow: /admin/
+Disallow: /private/
+Disallow: /internal/
+Disallow: /dev/
+Disallow: /temp/
+
+# Allow essential assets
+Allow: /*.js$
+Allow: /*.css$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.svg$
+Allow: /*.webp$
+Allow: /*.woff$
+Allow: /*.woff2$
