@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title: 'Terms of Service',
   description: 'BeaconAI Consulting terms of use and service agreement.',
   alternates: {
-    canonical: 'https://beaconai.consulting/terms-of-service',
+    canonical: 'https://beaconai.ai/terms-of-service',
   },
 };
 

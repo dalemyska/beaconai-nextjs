@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     description: 'Find out if your business is ready for AI. Take our free assessment.',
   },
   alternates: {
-    canonical: 'https://beaconai.consulting',
+    canonical: 'https://beaconai.ai',
   },
 };
 

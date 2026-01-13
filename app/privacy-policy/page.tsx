@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title: 'Privacy Policy',
   description: 'BeaconAI Consulting privacy policy and data protection practices.',
   alternates: {
-    canonical: 'https://beaconai.consulting/privacy-policy',
+    canonical: 'https://beaconai.ai/privacy-policy',
   },
 };
 

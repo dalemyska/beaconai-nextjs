@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     images: ['/dale-myska-headshot.jpeg'],
   },
   alternates: {
-    canonical: 'https://beaconai.consulting/about',
+    canonical: 'https://beaconai.ai/about',
   },
 };
 

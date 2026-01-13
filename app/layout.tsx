@@ -19,7 +19,7 @@ const sourceSans = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://beaconai.consulting"),
+  metadataBase: new URL("https://beaconai.ai"),
   title: {
     default: "BeaconAI - AI Implementation & Strategy Consulting | Practical Solutions",
     template: "%s | BeaconAI",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://beaconai.consulting",
+    url: "https://beaconai.ai",
     siteName: "BeaconAI",
     title: "BeaconAI - AI Implementation & Strategy Consulting",
     description:
@@ -94,8 +94,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "BeaconAI",
-              url: "https://beaconai.consulting",
-              logo: "https://beaconai.consulting/lovable-uploads/d3757dcc-3a2b-46f7-94ce-de50e39f9312.png",
+              url: "https://beaconai.ai",
+              logo: "https://beaconai.ai/lovable-uploads/d3757dcc-3a2b-46f7-94ce-de50e39f9312.png",
               description: "AI Implementation & Strategy Consulting - Practical Solutions for businesses of all sizes.",
               contactPoint: {
                 "@type": "ContactPoint",

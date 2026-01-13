@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'AI Strategy Blog - Practical Implementation Insights | beaconAI',
     description: 'Expert insights on AI implementation, strategy, and transformation for executives and business leaders.',
-    url: 'https://beaconai.consulting/blog',
+    url: 'https://beaconai.ai/blog',
     siteName: 'beaconAI',
     type: 'website',
   },
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     description: 'Expert insights on AI implementation, strategy, and transformation for executives and business leaders.',
   },
   alternates: {
-    canonical: 'https://beaconai.consulting/blog',
+    canonical: 'https://beaconai.ai/blog',
   },
 };
 

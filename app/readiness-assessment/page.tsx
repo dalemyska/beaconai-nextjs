@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     type: 'website',
     title: 'AI Readiness Assessment | beaconAI',
     description: 'Discover your organization\'s AI readiness score. Get personalized insights and actionable recommendations in just 5 minutes.',
-    url: 'https://beaconai.consulting/readiness-assessment',
+    url: 'https://beaconai.ai/readiness-assessment',
     siteName: 'beaconAI',
   },
   twitter: {
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     description: 'Discover your organization\'s AI readiness score. Get personalized insights and actionable recommendations in just 5 minutes.',
   },
   alternates: {
-    canonical: 'https://beaconai.consulting/readiness-assessment',
+    canonical: 'https://beaconai.ai/readiness-assessment',
   },
 };
 
