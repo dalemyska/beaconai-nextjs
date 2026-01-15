@@ -1,7 +1,7 @@
 # BeaconAI Next.js Migration - Project Status
 
 **Last Updated:** January 15, 2026
-**Status:** DEPLOYED - Minor DNS cleanup remaining
+**Status:** FULLY DEPLOYED AND COMPLETE
 
 ---
 
@@ -39,34 +39,9 @@ NEXT_PUBLIC_SITE_URL=https://beaconai.ai
 
 ---
 
-## Remaining Task
-
-### Cloudflare Redirect Rule for beaconai.consulting
-The old domain `beaconai.consulting` needs a redirect rule to forward to `beaconai.ai`.
-
-**Steps to complete in Cloudflare:**
-1. Log into Cloudflare dashboard
-2. Select `beaconai.consulting` domain
-3. Go to **Rules** → **Redirect Rules**
-4. Click **Create rule**
-5. Configure:
-   - Rule name: `Redirect to beaconai.ai`
-   - When: Hostname equals `beaconai.consulting`
-   - Then: Static redirect to `https://beaconai.ai`
-   - Status code: `301`
-   - Preserve query string: Yes
-6. Click **Deploy**
-
----
-
-## Browser Cache Issue (User-specific)
-
-The user's regular browser has a cached 301 redirect from old testing. This only affects them, not new visitors.
-
-**To fix on user's machine:**
-- Go to `chrome://settings/siteData`
-- Search for "beaconai" and delete all entries
-- Or use incognito (already confirmed working)
+### Cloudflare Redirect Rule (Complete)
+- `beaconai.consulting` redirects to `beaconai.ai` via Cloudflare redirect rule
+- 301 permanent redirect with query string preservation
 
 ---
 
