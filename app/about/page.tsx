@@ -4,8 +4,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Building, DollarSign, Users, TrendingUp, ArrowDown, Check } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: 'About Dale Myska - beaconAI Founder | MIT AI Executive',
-  description: "Learn about Dale Myska's journey from Fortune 50 operations leadership to founding beaconAI. MIT AI Executive Academy graduate helping SMBs implement practical AI solutions.",
+  title: 'About Dale Myska | MIT AI Executive',
+  description: "Dale Myska's journey from Fortune 50 operations to founding beaconAI. MIT AI Executive helping SMBs implement practical AI.",
   openGraph: {
     title: 'About Dale Myska - beaconAI Founder | MIT AI Executive',
     description: "Learn about Dale Myska's journey from Fortune 50 operations leadership to founding beaconAI.",

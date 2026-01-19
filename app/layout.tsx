@@ -10,12 +10,16 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
+  display: "swap",
+  preload: true,
 });
 
 const sourceSans = Source_Sans_3({
   variable: "--font-source-sans",
   subsets: ["latin"],
   weight: ["300", "400", "600", "700"],
+  display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -71,10 +75,6 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
     },
   },
-  icons: {
-    icon: "/lovable-uploads/d3757dcc-3a2b-46f7-94ce-de50e39f9312.png",
-    apple: "/lovable-uploads/d3757dcc-3a2b-46f7-94ce-de50e39f9312.png",
-  },
 };
 
 export default function RootLayout({
@@ -85,6 +85,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Preconnect to external domains for faster loading */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://snap.licdn.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://snap.licdn.com" />
+
         {/* Organization structured data - static content, safe to inject */}
         <script
           type="application/ld+json"
@@ -118,9 +124,9 @@ export default function RootLayout({
         {/* Google Analytics */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}`}
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -130,14 +136,14 @@ export default function RootLayout({
         </Script>
 
         {/* LinkedIn Insight Tag */}
-        <Script id="linkedin-insight" strategy="afterInteractive">
+        <Script id="linkedin-insight" strategy="lazyOnload">
           {`
             _linkedin_partner_id = "7251420";
             window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
             window._linkedin_data_partner_ids.push(_linkedin_partner_id);
           `}
         </Script>
-        <Script id="linkedin-insight-loader" strategy="afterInteractive">
+        <Script id="linkedin-insight-loader" strategy="lazyOnload">
           {`
             (function(l) {
               if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};

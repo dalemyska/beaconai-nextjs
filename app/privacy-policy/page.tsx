@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy',
+  title: 'Privacy Policy | Data Protection | BeaconAI',
   description: 'BeaconAI Consulting privacy policy and data protection practices.',
   alternates: {
     canonical: 'https://beaconai.ai/privacy-policy',

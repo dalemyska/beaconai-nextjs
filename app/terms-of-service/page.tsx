@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Terms of Service',
+  title: 'Terms of Service | User Agreement | BeaconAI',
   description: 'BeaconAI Consulting terms of use and service agreement.',
   alternates: {
     canonical: 'https://beaconai.ai/terms-of-service',

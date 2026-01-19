@@ -1,12 +1,28 @@
-'use client';
-
+import type { Metadata } from 'next';
 import Link from 'next/link';
+import { CalendlyButton } from '@/components/contact/CalendlyButton';
+
+export const metadata: Metadata = {
+  title: 'Contact BeaconAI | AI Strategy Consulting',
+  description: 'Get in touch with BeaconAI for AI implementation and strategy consulting. Schedule a call or email us to discuss your AI transformation.',
+  openGraph: {
+    title: 'Contact BeaconAI | AI Strategy Consulting',
+    description: 'Schedule a consultation to discuss your AI implementation needs.',
+    url: 'https://beaconai.ai/contact',
+    siteName: 'beaconAI',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Contact BeaconAI | AI Strategy Consulting',
+    description: 'Schedule a consultation to discuss your AI implementation needs.',
+  },
+  alternates: {
+    canonical: 'https://beaconai.ai/contact',
+  },
+};
 
 export default function ContactPage() {
-  const handleCallClick = () => {
-    window.open('https://calendly.com/dalemyska/ai-strategy', '_blank');
-  };
-
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -44,12 +60,7 @@ export default function ContactPage() {
               <p className="text-lg mb-8 opacity-90">
                 Ready to dive deeper? Let&apos;s have a strategic conversation about your AI readiness.
               </p>
-              <button
-                onClick={handleCallClick}
-                className="inline-block bg-beacon-gold text-beacon-navy px-8 py-4 text-lg font-bold rounded-md hover:bg-beacon-gold/90 transition-all duration-300"
-              >
-                Book 30-Minute Call
-              </button>
+              <CalendlyButton />
             </div>
 
           </div>
@@ -69,6 +80,33 @@ export default function ContactPage() {
             >
               Take the Assessment First
             </Link>
+          </div>
+
+          {/* What to Expect */}
+          <div className="mt-16 bg-gray-50 p-8 rounded-lg">
+            <h3 className="text-2xl font-bold text-beacon-navy mb-6 text-center">
+              What to Expect When We Connect
+            </h3>
+            <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+              <div>
+                <h4 className="font-bold text-beacon-navy mb-3">During Our Consultation</h4>
+                <ul className="space-y-2 text-gray-700">
+                  <li>• Review your current AI challenges and opportunities</li>
+                  <li>• Discuss your assessment results (if completed)</li>
+                  <li>• Identify quick wins and strategic initiatives</li>
+                  <li>• Outline a potential implementation roadmap</li>
+                  <li>• Determine if we&apos;re a good fit to work together</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-bold text-beacon-navy mb-3">No Pressure, Just Value</h4>
+                <p className="text-gray-700 mb-4">
+                  Every conversation is focused on providing value, whether we end up working together or not.
+                  I only take on 5 clients at a time, so if we&apos;re not the right fit, I&apos;ll tell you honestly
+                  and may even recommend other resources.
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* LinkedIn */}
