@@ -173,7 +173,7 @@ const prompts: Record<string, PromptConfig> = {
     ]
   },
   '13': {
-    name: 'Landing Page Builder',
+    name: 'Landing Page Builder (Beta)',
     description: 'Generate fast-loading HTML landing page with TDG branding, optimized for conversions',
     icon: <Layout className="w-5 h-5" />,
     fields: [
