@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { FileText, Lightbulb, HelpCircle, Briefcase, RefreshCw, CheckCircle, AlertCircle, Search, PenTool, Copy, Database, BookOpen, Lock } from 'lucide-react';
+import { FileText, Lightbulb, HelpCircle, Briefcase, RefreshCw, CheckCircle, AlertCircle, Search, PenTool, Copy, Database, BookOpen, Lock, Layout } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -169,6 +169,20 @@ const prompts: Record<string, PromptConfig> = {
       { id: 'researchArea', label: 'Research Area *', placeholder: 'e.g., IATA regulations, lithium batteries, hazmat compliance', required: true },
       { id: 'competitorUrls', label: 'Competitor URLs (optional)', placeholder: 'Paste competitor blog URLs to analyze their topics', multiline: true, rows: 3, required: false },
       { id: 'numberOfIdeas', label: 'Number of Ideas', placeholder: '10', defaultValue: '10', required: false }
+    ]
+  },
+  '13': {
+    name: 'Landing Page Builder',
+    description: 'Generate complete landing page content with TDG branding, optimized for conversions',
+    icon: <Layout className="w-5 h-5" />,
+    fields: [
+      { id: 'trainingCourse', label: 'Training Course *', placeholder: 'e.g., IATA Category 6, DOT Hazmat, IMDG Code', required: true },
+      { id: 'campaignGoal', label: 'Campaign Goal *', placeholder: 'e.g., Lead generation, Direct enrollment, Webinar signup, Free consultation', required: true },
+      { id: 'targetPersona', label: 'Target Persona *', placeholder: 'e.g., Compliance Manager, Freight Forwarder, Shipper, HR Manager', required: true },
+      { id: 'urgencyLevel', label: 'Urgency Context', placeholder: 'e.g., Certificate expiring, Carrier rejection, Audit coming, General interest', required: false },
+      { id: 'keyDifferentiators', label: 'Key Differentiators to Emphasize', placeholder: 'e.g., Same-day certificate, 2-year validity, Group discounts, FedEx/UPS accepted', multiline: true, rows: 2, required: false },
+      { id: 'promotionOffer', label: 'Promotion/Offer (optional)', placeholder: 'e.g., 20% off for groups of 5+, Free DGR manual included', required: false },
+      { id: 'outputFormat', label: 'Output Format', placeholder: 'Structured sections (default)', defaultValue: 'structured', required: false }
     ]
   }
 };
