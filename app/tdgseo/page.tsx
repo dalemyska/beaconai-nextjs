@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { FileText, Lightbulb, HelpCircle, Briefcase, RefreshCw, CheckCircle, AlertCircle, Search, PenTool, Copy, Database, BookOpen, Lock, Layout } from 'lucide-react';
+import { FileText, Lightbulb, HelpCircle, Briefcase, RefreshCw, CheckCircle, AlertCircle, Search, PenTool, Copy, Database, BookOpen, Lock, Layout, Eye, Code } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -245,6 +245,7 @@ export default function TDGSeoPage() {
   const [includeKB, setIncludeKB] = useState(true);
   const [kbStats, setKbStats] = useState<{ count: number; lastIndexed: string | null }>({ count: 0, lastIndexed: null });
   const [usedKB, setUsedKB] = useState(false);
+  const [showPreview, setShowPreview] = useState(true);
   const { toast } = useToast();
 
   // Check for saved auth on mount
@@ -677,7 +678,9 @@ export default function TDGSeoPage() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <CheckCircle className="w-6 h-6" style={{ color: '#1C7C7C' }} />
-                      <CardTitle style={{ color: '#1C7C7C' }}>Generated Content</CardTitle>
+                      <CardTitle style={{ color: '#1C7C7C' }}>
+                        {selectedPrompt === '13' ? 'Generated Landing Page' : 'Generated Content'}
+                      </CardTitle>
                       {usedKB && (
                         <span
                           className="text-xs px-2 py-1 rounded-full flex items-center gap-1"
@@ -688,24 +691,58 @@ export default function TDGSeoPage() {
                         </span>
                       )}
                     </div>
-                    <Button
-                      onClick={copyToClipboard}
-                      variant="outline"
-                      size="sm"
-                      className="font-semibold"
-                    >
-                      <Copy className="w-4 h-4 mr-2" />
-                      Copy
-                    </Button>
+                    <div className="flex items-center gap-2">
+                      {selectedPrompt === '13' && (
+                        <Button
+                          onClick={() => setShowPreview(!showPreview)}
+                          variant="outline"
+                          size="sm"
+                          className="font-semibold"
+                        >
+                          {showPreview ? (
+                            <>
+                              <Code className="w-4 h-4 mr-2" />
+                              View Code
+                            </>
+                          ) : (
+                            <>
+                              <Eye className="w-4 h-4 mr-2" />
+                              Preview
+                            </>
+                          )}
+                        </Button>
+                      )}
+                      <Button
+                        onClick={copyToClipboard}
+                        variant="outline"
+                        size="sm"
+                        className="font-semibold"
+                      >
+                        <Copy className="w-4 h-4 mr-2" />
+                        Copy
+                      </Button>
+                    </div>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div
-                    className="rounded-lg p-6 border-2 whitespace-pre-wrap text-sm leading-relaxed font-medium"
-                    style={{ backgroundColor: '#F9FAFB', borderColor: '#E5E7EB', color: '#2C3E50' }}
-                  >
-                    {results}
-                  </div>
+                  {selectedPrompt === '13' && showPreview ? (
+                    <div className="rounded-lg border-2 overflow-hidden" style={{ borderColor: '#E5E7EB' }}>
+                      <iframe
+                        srcDoc={results}
+                        title="Landing Page Preview"
+                        className="w-full bg-white"
+                        style={{ height: '800px', border: 'none' }}
+                        sandbox="allow-scripts"
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      className="rounded-lg p-6 border-2 whitespace-pre-wrap text-sm leading-relaxed font-medium overflow-x-auto"
+                      style={{ backgroundColor: '#F9FAFB', borderColor: '#E5E7EB', color: '#2C3E50' }}
+                    >
+                      {results}
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             )}
