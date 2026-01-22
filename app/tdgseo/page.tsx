@@ -205,13 +205,11 @@ const prompts: Record<string, PromptConfig> = {
         required: true,
         options: [
           { value: '', label: 'Select a persona...' },
-          { value: 'Compliance Manager - needs to keep team certified and audit-ready', label: 'Compliance Manager' },
-          { value: 'Freight Forwarder - handles DG shipments for clients, needs certification', label: 'Freight Forwarder' },
-          { value: 'Shipper/Warehouse - prepares DG packages, needs initial or renewal cert', label: 'Shipper/Warehouse' },
-          { value: 'HR/Training Manager - enrolling employees in bulk training', label: 'HR/Training Manager' },
-          { value: 'Small Business Owner - shipping DG products, carrier requires cert', label: 'Small Business Owner' },
-          { value: 'Logistics Coordinator - managing DG compliance across operations', label: 'Logistics Coordinator' },
-          { value: 'New Hire - first-time certification required for job', label: 'New Hire' }
+          { value: 'compliance-carol', label: 'Compliance Carol (Strategic Partner)' },
+          { value: 'crisis-chris', label: 'Crisis Chris (Crisis Responder)' },
+          { value: 'director-derek', label: 'Director Derek (Enterprise)' },
+          { value: 'checkbox-charlie', label: 'Checkbox Charlie (Transactional)' },
+          { value: 'irate-irene', label: 'Irate Irene (Convinced-by-Competitor)' }
         ]
       },
       {
