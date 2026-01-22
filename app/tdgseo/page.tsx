@@ -396,11 +396,24 @@ export default function TDGSeoPage() {
     }
   };
 
+  // Helper to extract HTML from markdown code fences
+  const extractHtml = (content: string): string => {
+    // Remove markdown code fences if present (```html ... ``` or ``` ... ```)
+    const codeBlockRegex = /^```(?:html)?\s*\n?([\s\S]*?)\n?```\s*$/;
+    const match = content.trim().match(codeBlockRegex);
+    if (match) {
+      return match[1].trim();
+    }
+    return content;
+  };
+
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(results);
+    // For landing pages, copy the clean HTML without markdown fences
+    const contentToCopy = selectedPrompt === '13' ? extractHtml(results) : results;
+    navigator.clipboard.writeText(contentToCopy);
     toast({
       title: "Copied",
-      description: "Content copied to clipboard!",
+      description: selectedPrompt === '13' ? "HTML code copied to clipboard!" : "Content copied to clipboard!",
     });
   };
 
@@ -728,7 +741,7 @@ export default function TDGSeoPage() {
                   {selectedPrompt === '13' && showPreview ? (
                     <div className="rounded-lg border-2 overflow-hidden" style={{ borderColor: '#E5E7EB' }}>
                       <iframe
-                        srcDoc={results}
+                        srcDoc={extractHtml(results)}
                         title="Landing Page Preview"
                         className="w-full bg-white"
                         style={{ height: '800px', border: 'none' }}
@@ -740,7 +753,7 @@ export default function TDGSeoPage() {
                       className="rounded-lg p-6 border-2 whitespace-pre-wrap text-sm leading-relaxed font-medium overflow-x-auto"
                       style={{ backgroundColor: '#F9FAFB', borderColor: '#E5E7EB', color: '#2C3E50' }}
                     >
-                      {results}
+                      {selectedPrompt === '13' ? extractHtml(results) : results}
                     </div>
                   )}
                 </CardContent>
