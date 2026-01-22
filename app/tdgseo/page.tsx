@@ -30,7 +30,8 @@ interface PromptField {
   multiline?: boolean;
   rows?: number;
   defaultValue?: string;
-  type?: 'checkbox' | 'text';
+  type?: 'checkbox' | 'text' | 'select';
+  options?: { value: string; label: string }[];
 }
 
 interface PromptConfig {
@@ -173,16 +174,63 @@ const prompts: Record<string, PromptConfig> = {
   },
   '13': {
     name: 'Landing Page Builder',
-    description: 'Generate complete landing page content with TDG branding, optimized for conversions',
+    description: 'Generate fast-loading HTML landing page with TDG branding, optimized for conversions',
     icon: <Layout className="w-5 h-5" />,
     fields: [
-      { id: 'trainingCourse', label: 'Training Course *', placeholder: 'e.g., IATA Category 6, DOT Hazmat, IMDG Code', required: true },
-      { id: 'campaignGoal', label: 'Campaign Goal *', placeholder: 'e.g., Lead generation, Direct enrollment, Webinar signup, Free consultation', required: true },
-      { id: 'targetPersona', label: 'Target Persona *', placeholder: 'e.g., Compliance Manager, Freight Forwarder, Shipper, HR Manager', required: true },
-      { id: 'urgencyLevel', label: 'Urgency Context', placeholder: 'e.g., Certificate expiring, Carrier rejection, Audit coming, General interest', required: false },
-      { id: 'keyDifferentiators', label: 'Key Differentiators to Emphasize', placeholder: 'e.g., Same-day certificate, 2-year validity, Group discounts, FedEx/UPS accepted', multiline: true, rows: 2, required: false },
+      {
+        id: 'trainingCourse',
+        label: 'Training Course *',
+        type: 'select',
+        required: true,
+        options: [
+          { value: '', label: 'Select a course...' },
+          { value: 'IATA Category 6 - Shippers', label: 'IATA Category 6 - Shippers' },
+          { value: 'IATA Category 3 - Freight Forwarders', label: 'IATA Category 3 - Freight Forwarders' },
+          { value: 'IATA Category 1 - Operators', label: 'IATA Category 1 - Operators' },
+          { value: 'IATA Recurrent Training', label: 'IATA Recurrent Training' },
+          { value: 'DOT Hazmat General Awareness', label: 'DOT Hazmat General Awareness' },
+          { value: 'DOT Hazmat Function-Specific', label: 'DOT Hazmat Function-Specific' },
+          { value: 'DOT 49 CFR Ground Shipper', label: 'DOT 49 CFR Ground Shipper' },
+          { value: 'IMDG Code - Ocean Shipping', label: 'IMDG Code - Ocean Shipping' },
+          { value: 'Lithium Battery Shipping', label: 'Lithium Battery Shipping' },
+          { value: 'Multimodal DG Training', label: 'Multimodal DG Training' },
+          { value: 'Dry Ice Shipping', label: 'Dry Ice Shipping' },
+          { value: 'Biological Substances (UN3373)', label: 'Biological Substances (UN3373)' }
+        ]
+      },
+      {
+        id: 'targetPersona',
+        label: 'Target Persona *',
+        type: 'select',
+        required: true,
+        options: [
+          { value: '', label: 'Select a persona...' },
+          { value: 'Compliance Manager - needs to keep team certified and audit-ready', label: 'Compliance Manager' },
+          { value: 'Freight Forwarder - handles DG shipments for clients, needs certification', label: 'Freight Forwarder' },
+          { value: 'Shipper/Warehouse - prepares DG packages, needs initial or renewal cert', label: 'Shipper/Warehouse' },
+          { value: 'HR/Training Manager - enrolling employees in bulk training', label: 'HR/Training Manager' },
+          { value: 'Small Business Owner - shipping DG products, carrier requires cert', label: 'Small Business Owner' },
+          { value: 'Logistics Coordinator - managing DG compliance across operations', label: 'Logistics Coordinator' },
+          { value: 'New Hire - first-time certification required for job', label: 'New Hire' }
+        ]
+      },
+      {
+        id: 'urgencyLevel',
+        label: 'Urgency Context',
+        type: 'select',
+        required: false,
+        options: [
+          { value: '', label: 'No specific urgency' },
+          { value: 'Certificate expiring soon - needs renewal ASAP', label: 'Certificate Expiring' },
+          { value: 'Shipment rejected by carrier - needs cert to ship', label: 'Carrier Rejection' },
+          { value: 'Audit coming up - needs compliance documentation', label: 'Upcoming Audit' },
+          { value: 'New job requirement - must get certified to start', label: 'Job Requirement' },
+          { value: 'Expanding to DG shipping - getting started', label: 'New to DG Shipping' }
+        ]
+      },
       { id: 'promotionOffer', label: 'Promotion/Offer (optional)', placeholder: 'e.g., 20% off for groups of 5+, Free DGR manual included', required: false },
-      { id: 'outputFormat', label: 'Output Format', placeholder: 'Structured sections (default)', defaultValue: 'structured', required: false }
+      { id: 'courseUrl', label: 'Course URL for CTA *', placeholder: 'https://dgtraining.com/course-name/', required: true },
+      { id: 'coursePrice', label: 'Course Price', placeholder: 'e.g., $199, $149 (sale)', required: false }
     ]
   }
 };
@@ -556,6 +604,20 @@ export default function TDGSeoPage() {
                           Include trending topic analysis
                         </Label>
                       </div>
+                    ) : field.type === 'select' ? (
+                      <select
+                        id={field.id}
+                        value={inputs[field.id] || ''}
+                        onChange={(e) => handleInputChange(field.id, e.target.value)}
+                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        style={{ color: inputs[field.id] ? '#2C3E50' : '#9CA3AF' }}
+                      >
+                        {field.options?.map(opt => (
+                          <option key={opt.value} value={opt.value} style={{ color: '#2C3E50' }}>
+                            {opt.label}
+                          </option>
+                        ))}
+                      </select>
                     ) : field.multiline ? (
                       <Textarea
                         id={field.id}
