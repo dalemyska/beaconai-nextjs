@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { FileText, Lightbulb, HelpCircle, Briefcase, RefreshCw, CheckCircle, AlertCircle, Search, PenTool, Copy, Database, BookOpen } from 'lucide-react';
+import { FileText, Lightbulb, HelpCircle, Briefcase, RefreshCw, CheckCircle, AlertCircle, Search, PenTool, Copy, Database, BookOpen, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -10,6 +10,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { createClient } from '@supabase/supabase-js';
+import { Switch } from '@/components/ui/switch';
 
 // Create an untyped Supabase client for TDG-specific tables
 // These tables exist in the shared Supabase project but aren't typed in beaconAI's schema
@@ -17,7 +18,9 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
-import { Switch } from '@/components/ui/switch';
+
+// Simple password for internal tool access
+const TOOL_PASSWORD = 'tdg2024seo';
 
 interface PromptField {
   id: string;
@@ -171,6 +174,9 @@ const prompts: Record<string, PromptConfig> = {
 };
 
 export default function TDGSeoPage() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState('');
+  const [authError, setAuthError] = useState('');
   const [selectedPrompt, setSelectedPrompt] = useState('1');
   const [loading, setLoading] = useState(false);
   const [crawling, setCrawling] = useState(false);
@@ -181,10 +187,36 @@ export default function TDGSeoPage() {
   const [usedKB, setUsedKB] = useState(false);
   const { toast } = useToast();
 
-  // Fetch KB stats on mount
+  // Check for saved auth on mount
   useEffect(() => {
-    fetchKBStats();
+    const savedAuth = sessionStorage.getItem('tdg-seo-auth');
+    if (savedAuth === 'true') {
+      setIsAuthenticated(true);
+    }
   }, []);
+
+  // Fetch KB stats on mount (only if authenticated)
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchKBStats();
+    }
+  }, [isAuthenticated]);
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password === TOOL_PASSWORD) {
+      setIsAuthenticated(true);
+      setAuthError('');
+      sessionStorage.setItem('tdg-seo-auth', 'true');
+    } else {
+      setAuthError('Incorrect password');
+    }
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    sessionStorage.removeItem('tdg-seo-auth');
+  };
 
   const fetchKBStats = async () => {
     try {
@@ -311,21 +343,84 @@ export default function TDGSeoPage() {
     });
   };
 
+  // Login screen
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#F8F9FA' }}>
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <div className="flex justify-center mb-4">
+              <div className="w-16 h-16 rounded-lg flex items-center justify-center font-bold text-white text-2xl" style={{ backgroundColor: '#1C7C7C' }}>
+                TDG
+              </div>
+            </div>
+            <CardTitle style={{ color: '#1C7C7C' }}>SEO Content Generator</CardTitle>
+            <p className="text-sm" style={{ color: '#6B7280' }}>Internal tool for Transportation Development Group</p>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleLogin} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="password" className="font-medium" style={{ color: '#2C3E50' }}>
+                  Password
+                </Label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" style={{ color: '#6B7280' }} />
+                  <Input
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter password"
+                    className="pl-10"
+                    autoFocus
+                  />
+                </div>
+                {authError && (
+                  <p className="text-sm text-red-500 flex items-center gap-1">
+                    <AlertCircle className="w-4 h-4" />
+                    {authError}
+                  </p>
+                )}
+              </div>
+              <Button
+                type="submit"
+                className="w-full font-bold"
+                style={{ backgroundColor: '#1C7C7C', color: '#FFFFFF' }}
+              >
+                Access Tool
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#F8F9FA' }}>
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* Header */}
         <div className="mb-8">
-          <div className="flex items-center gap-4 mb-2">
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-white" style={{ backgroundColor: '#1C7C7C' }}>
-                TDG
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4 mb-2">
+              <div className="flex items-center gap-2">
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-white" style={{ backgroundColor: '#1C7C7C' }}>
+                  TDG
+                </div>
+              </div>
+              <div>
+                <h1 className="text-2xl font-black" style={{ color: '#2C3E50' }}>SEO Content Generator</h1>
+                <p className="text-sm" style={{ color: '#6B7280' }}>Transportation Development Group</p>
               </div>
             </div>
-            <div>
-              <h1 className="text-2xl font-black" style={{ color: '#2C3E50' }}>SEO Content Generator</h1>
-              <p className="text-sm" style={{ color: '#6B7280' }}>Transportation Development Group</p>
-            </div>
+            <Button
+              onClick={handleLogout}
+              variant="outline"
+              size="sm"
+              className="font-medium"
+            >
+              Logout
+            </Button>
           </div>
           <p style={{ color: '#6B7280' }}>Generate optimized meta descriptions, FAQs, and content for dgtraining.com</p>
         </div>
