@@ -745,7 +745,6 @@ export default function TDGSeoPage() {
                         title="Landing Page Preview"
                         className="w-full bg-white"
                         style={{ height: '800px', border: 'none' }}
-                        sandbox="allow-scripts"
                       />
                     </div>
                   ) : (
