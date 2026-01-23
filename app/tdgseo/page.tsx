@@ -199,17 +199,28 @@ const prompts: Record<string, PromptConfig> = {
         ]
       },
       {
-        id: 'targetPersona',
-        label: 'Target Persona *',
+        id: 'buyerPersona',
+        label: 'Buyer Persona *',
         type: 'select',
         required: true,
         options: [
-          { value: '', label: 'Select a persona...' },
+          { value: '', label: 'Select a buyer persona...' },
           { value: 'compliance-carol', label: 'Compliance Carol (Strategic Partner)' },
           { value: 'crisis-chris', label: 'Crisis Chris (Crisis Responder)' },
           { value: 'director-derek', label: 'Director Derek (Enterprise)' },
           { value: 'checkbox-charlie', label: 'Checkbox Charlie (Transactional)' },
           { value: 'irate-irene', label: 'Irate Irene (Convinced-by-Competitor)' }
+        ]
+      },
+      {
+        id: 'marketSegment',
+        label: 'Market Segment *',
+        type: 'select',
+        required: true,
+        options: [
+          { value: '', label: 'Select a market segment...' },
+          { value: 'maker', label: 'MAKER (Offerer) - Manufacturers, distributors, e-commerce' },
+          { value: 'mover', label: 'MOVER (Carrier) - Freight forwarders, 3PLs, airlines' }
         ]
       },
       {
@@ -398,13 +409,35 @@ export default function TDGSeoPage() {
 
   // Helper to extract HTML from markdown code fences
   const extractHtml = (content: string): string => {
-    // Remove markdown code fences if present (```html ... ``` or ``` ... ```)
-    const codeBlockRegex = /^```(?:html)?\s*\n?([\s\S]*?)\n?```\s*$/;
-    const match = content.trim().match(codeBlockRegex);
+    const trimmed = content.trim();
+
+    // Try to match markdown code fences (```html ... ``` or ``` ... ```)
+    // Use a more flexible regex that handles various formats
+    const codeBlockRegex = /^```(?:html)?\s*\n([\s\S]*?)\n```\s*$/;
+    const match = trimmed.match(codeBlockRegex);
     if (match) {
       return match[1].trim();
     }
-    return content;
+
+    // Also try without requiring newlines (for single-line cases)
+    const simpleRegex = /^```(?:html)?\s*([\s\S]*?)```\s*$/;
+    const simpleMatch = trimmed.match(simpleRegex);
+    if (simpleMatch) {
+      return simpleMatch[1].trim();
+    }
+
+    // If content starts with <!DOCTYPE or <html, it's already clean HTML
+    if (trimmed.startsWith('<!DOCTYPE') || trimmed.startsWith('<html') || trimmed.startsWith('<HTML')) {
+      return trimmed;
+    }
+
+    // Look for HTML content anywhere in the response (in case there's text before/after)
+    const htmlMatch = trimmed.match(/(<!DOCTYPE[\s\S]*<\/html>)/i);
+    if (htmlMatch) {
+      return htmlMatch[1];
+    }
+
+    return trimmed;
   };
 
   const copyToClipboard = () => {
