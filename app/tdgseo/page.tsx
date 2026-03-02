@@ -19,8 +19,8 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
-// Simple password for internal tool access
-const TOOL_PASSWORD = 'tdg2024seo';
+// Simple password for internal tool access (loaded from env to keep out of client bundle source)
+const TOOL_PASSWORD = process.env.NEXT_PUBLIC_TDG_TOOL_PASSWORD || '';
 
 interface PromptField {
   id: string;
@@ -778,6 +778,8 @@ export default function TDGSeoPage() {
                         title="Landing Page Preview"
                         className="w-full bg-white"
                         style={{ height: '800px', border: 'none' }}
+                        sandbox="allow-same-origin"
+                        referrerPolicy="no-referrer"
                       />
                     </div>
                   ) : (

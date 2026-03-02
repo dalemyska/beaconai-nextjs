@@ -62,7 +62,14 @@ const formSchema = z.object({
       // Allow plain domains like "example.com" or full URLs
       const urlPattern = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/.*)?$/;
       return urlPattern.test(val);
-    }, 'Please enter a valid website (e.g., yourcompany.com)'),
+    }, 'Please enter a valid website (e.g., yourcompany.com)')
+    .refine((val) => {
+      // Block internal/private hostnames
+      const hostname = val.replace(/^https?:\/\//, '').split('/')[0].toLowerCase();
+      const blocked = ['localhost', '127.0.0.1', '0.0.0.0', '169.254.169.254'];
+      const blockedSuffixes = ['.local', '.internal', '.localhost'];
+      return !blocked.includes(hostname) && !blockedSuffixes.some(s => hostname.endsWith(s));
+    }, 'Please enter a public website URL'),
   userName: z
     .string()
     .trim()

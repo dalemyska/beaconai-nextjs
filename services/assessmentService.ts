@@ -40,7 +40,8 @@ export interface CareAssessment {
   email_sent_at: string | null;
 }
 
-const EDGE_FUNCTION_BASE = 'https://bmnwovankwyusityxvir.supabase.co/functions/v1';
+const EDGE_FUNCTION_BASE = `${process.env.NEXT_PUBLIC_SUPABASE_URL!}/functions/v1`;
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
 /**
  * Verify that the assessment submission service is available
@@ -53,6 +54,7 @@ export const verifyServiceHealth = async (): Promise<boolean> => {
 
     const response = await fetch(`${EDGE_FUNCTION_BASE}/submit-assessment`, {
       method: 'GET',
+      headers: { 'apikey': SUPABASE_ANON_KEY },
       signal: controller.signal
     });
 
@@ -78,6 +80,7 @@ export const submitAssessment = async (data: CareAssessmentInsert): Promise<stri
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
       },
       body: JSON.stringify(data),
       signal: controller.signal
@@ -121,6 +124,7 @@ export const captureLeadFallback = async (data: {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
       },
       body: JSON.stringify(data),
     });

@@ -229,20 +229,32 @@ const CAREResultsStep = ({ data, assessment, onRestart, userRole }: ResultsStepP
 
   const handleScheduleCall = () => {
     console.log('[Analytics] Event: schedule_call_clicked');
-    window.open('https://app.usemotion.com/meet/dalemyska/linkedin', '_blank');
+    window.open('https://app.usemotion.com/meet/dalemyska/linkedin', '_blank', 'noopener,noreferrer');
   };
 
   const handleLearnMore = () => {
     console.log('[Analytics] Event: learn_more_clicked');
-    window.open('https://www.beaconai.ai', '_blank');
+    window.open('https://www.beaconai.ai', '_blank', 'noopener,noreferrer');
   };
 
   const handleDownloadReport = () => {
     console.log('[Analytics] Event: download_report_clicked', { hasPdf: !!pdfUrl });
     if (pdfUrl) {
-      window.open(pdfUrl, '_blank');
-    } else {
-      console.log('PDF not yet available');
+      // Validate URL is from our Supabase storage before opening
+      try {
+        const url = new URL(pdfUrl);
+        const allowedHosts = [
+          'bmnwovankwyusityxvir.supabase.co',
+          'bmnwovankwyusityxvir.supabase.in',
+        ];
+        if (!allowedHosts.some(host => url.hostname === host || url.hostname.endsWith(`.${host}`))) {
+          console.error('Blocked attempt to open untrusted URL');
+          return;
+        }
+        window.open(pdfUrl, '_blank', 'noopener,noreferrer');
+      } catch {
+        console.error('Invalid PDF URL');
+      }
     }
   };
 

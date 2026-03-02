@@ -139,7 +139,7 @@ const CAREAssessmentWizard = () => {
     }
   }, [data, currentStep, sessionId]);
 
-  // Restore from localStorage on mount
+  // Restore from localStorage on mount (auto-clean expired drafts)
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
@@ -148,17 +148,15 @@ const CAREAssessmentWizard = () => {
         const savedDate = new Date(savedAt);
         const hoursSinceSave = (Date.now() - savedDate.getTime()) / (1000 * 60 * 60);
 
-        // Only restore if saved within last 24 hours
-        if (hoursSinceSave < 24 && savedData.companyName) {
+        // Only restore if saved within last 4 hours (minimize PII retention)
+        if (hoursSinceSave < 4 && savedData.companyName) {
           setData(savedData);
           setCurrentStep(savedStep);
           toast.info('Restored your previous progress', { duration: 4000 });
-          console.log(`[Assessment][${sessionId}] Restored draft from ${savedAt}`);
         } else {
           clearSavedDraft();
         }
-      } catch (e) {
-        console.error('Failed to restore draft:', e);
+      } catch {
         clearSavedDraft();
       }
     }
@@ -276,7 +274,6 @@ const CAREAssessmentWizard = () => {
 
     console.log(`[Assessment][${sessionId}] Starting submission:`, {
       responseCount: Object.keys(flatResponses).length,
-      user: { name: data.userName, email: data.email, company: data.companyName }
     });
 
     setCurrentStep(4); // Processing step

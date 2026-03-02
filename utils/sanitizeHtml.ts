@@ -1,5 +1,12 @@
 import DOMPurify from 'dompurify';
 
+// Enforce rel="noopener noreferrer" on any link with target attribute
+DOMPurify.addHook('afterSanitizeAttributes', (node) => {
+  if (node.tagName === 'A' && node.getAttribute('target')) {
+    node.setAttribute('rel', 'noopener noreferrer');
+  }
+});
+
 /**
  * Safely sanitize HTML content to prevent XSS attacks
  */

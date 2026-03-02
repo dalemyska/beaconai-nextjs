@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Globe,
   Brain,
-  Lightbulb,
   FileText,
   Mail,
   CheckCircle2,
@@ -19,6 +18,7 @@ import { getStageFromStatus, isStageComplete } from '@/hooks/useAssessment';
 type AssessmentStatus =
   | 'pending'
   | 'scraping'
+  | 'generating_report'
   | 'generating_insights'
   | 'generating_solution'
   | 'generating_pdf'
@@ -44,15 +44,9 @@ const processingStages = [
   },
   {
     icon: Brain,
-    label: 'Evaluating AI readiness...',
-    description: 'Processing your assessment responses',
-    statusMatch: ['generating_insights'],
-  },
-  {
-    icon: Lightbulb,
-    label: 'Creating recommendations...',
-    description: 'Generating personalized insights',
-    statusMatch: ['generating_solution'],
+    label: 'Generating your report...',
+    description: 'Creating personalized insights and recommendations',
+    statusMatch: ['generating_report', 'generating_insights', 'generating_solution'],
   },
   {
     icon: FileText,
@@ -85,7 +79,8 @@ const ProcessingStep = ({ assessmentId, status, error, onComplete, onRetry }: Pr
     const stageProgress: Record<string, number> = {
       'pending': 5,
       'scraping': 15,
-      'generating_insights': 35,
+      'generating_report': 45,
+      'generating_insights': 45,
       'generating_solution': 55,
       'generating_pdf': 75,
       'sending_email': 90,

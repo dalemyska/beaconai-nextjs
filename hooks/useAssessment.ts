@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-const SUPABASE_URL = 'https://bmnwovankwyusityxvir.supabase.co';
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
 // Configuration for polling
 const POLLING_INTERVAL_MS = 5000; // 5 seconds
@@ -16,6 +17,7 @@ interface UseAssessmentOptions {
 type AssessmentStatus =
   | 'pending'
   | 'scraping'
+  | 'generating_report'
   | 'generating_insights'
   | 'generating_solution'
   | 'generating_pdf'
@@ -57,6 +59,10 @@ export function useAssessment(options: UseAssessmentOptions = {}): UseAssessment
   const pollCountRef = useRef<number>(0);
   const isPollingStoppedRef = useRef<boolean>(false);
 
+  // Stable ref for callbacks to avoid re-render loops
+  const optionsRef = useRef(options);
+  optionsRef.current = options;
+
   // Stop polling helper
   const stopPolling = useCallback((reason: string) => {
     if (pollingIntervalRef.current) {
@@ -81,7 +87,7 @@ export function useAssessment(options: UseAssessmentOptions = {}): UseAssessment
     if (pollCountRef.current > MAX_POLL_COUNT) {
       stopPolling(`Max poll count (${MAX_POLL_COUNT}) exceeded`);
       setError('Assessment is taking too long. Please check your email for results or contact support.');
-      options.onError?.('Polling timeout');
+      optionsRef.current.onError?.('Polling timeout');
       return;
     }
 
@@ -92,6 +98,7 @@ export function useAssessment(options: UseAssessmentOptions = {}): UseAssessment
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'apikey': SUPABASE_ANON_KEY,
           },
           body: JSON.stringify({ assessmentId }),
         }
@@ -113,14 +120,14 @@ export function useAssessment(options: UseAssessmentOptions = {}): UseAssessment
           // If it was completed, trigger completion callback
           if (errorData.status === 'completed') {
             setStatus('completed');
-            options.onComplete?.();
+            optionsRef.current.onComplete?.();
           } else {
             setError(errorData.message || 'Assessment processing completed. Check your email for results.');
           }
           return;
         }
 
-        // For other errors, don't immediately stop - could be transient
+        // For other errors, don't immediately stop, could be transient
         setError(errorData.error || 'Failed to fetch assessment status');
         return;
       }
@@ -134,19 +141,19 @@ export function useAssessment(options: UseAssessmentOptions = {}): UseAssessment
       if (data.status === 'completed') {
         console.log('Assessment completed!');
         stopPolling('Assessment completed');
-        options.onComplete?.();
+        optionsRef.current.onComplete?.();
       } else if (data.status === 'failed') {
         console.log('Assessment failed');
         stopPolling('Assessment failed');
         setError('Assessment processing failed. Please try again.');
-        options.onError?.('Assessment processing failed');
+        optionsRef.current.onError?.('Assessment processing failed');
       }
     } catch (err) {
       console.error('Failed to fetch assessment status:', err);
       // Network errors - don't immediately stop, could be transient
       setError(err instanceof Error ? err.message : 'Failed to fetch assessment status');
     }
-  }, [assessmentId, options, stopPolling]);
+  }, [assessmentId, stopPolling]);
 
   // Start polling when assessmentId is set
   useEffect(() => {
@@ -195,6 +202,7 @@ export function useAssessment(options: UseAssessmentOptions = {}): UseAssessment
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'apikey': SUPABASE_ANON_KEY,
           },
           body: JSON.stringify({ assessmentId: id }),
         }
@@ -255,16 +263,16 @@ export function getStageFromStatus(status: AssessmentStatus | null): number {
       return 0;
     case 'scraping':
       return 0;
+    case 'generating_report':
     case 'generating_insights':
-      return 1;
     case 'generating_solution':
-      return 2;
+      return 1;
     case 'generating_pdf':
-      return 3;
+      return 2;
     case 'sending_email':
-      return 4;
+      return 3;
     case 'completed':
-      return 5;
+      return 4;
     case 'failed':
       return -1;
     default:
