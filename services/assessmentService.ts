@@ -1,5 +1,3 @@
-import { supabase } from '@/lib/supabase/client';
-
 export interface CareAssessmentInsert {
   user_name: string;
   user_email: string;
@@ -119,6 +117,9 @@ export const captureLeadFallback = async (data: {
   session_id?: string;
   error_message?: string;
 }): Promise<boolean> => {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 10000);
+
   try {
     const response = await fetch(`${EDGE_FUNCTION_BASE}/emergency-lead-capture`, {
       method: 'POST',
@@ -127,84 +128,15 @@ export const captureLeadFallback = async (data: {
         'apikey': SUPABASE_ANON_KEY,
       },
       body: JSON.stringify(data),
+      signal: controller.signal
     });
 
+    clearTimeout(timeoutId);
     return response.ok;
   } catch (error) {
+    clearTimeout(timeoutId);
     console.error('[AssessmentService] Emergency lead capture failed:', error);
     return false;
   }
 };
 
-/**
- * Get the current status of an assessment
- * @param id Assessment ID
- * @returns Current status string
- */
-export const getAssessmentStatus = async (id: string): Promise<string> => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data, error } = await (supabase as any)
-    .from('care_assessments')
-    .select('status')
-    .eq('id', id)
-    .single();
-
-  if (error) {
-    console.error('Error fetching assessment status:', error);
-    throw new Error(`Failed to fetch assessment status: ${error.message}`);
-  }
-
-  return (data as { status: string }).status || 'pending';
-};
-
-/**
- * Get the full assessment results
- * @param id Assessment ID
- * @returns Full assessment object
- */
-export const getAssessmentResults = async (id: string): Promise<CareAssessment> => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data, error } = await (supabase as any)
-    .from('care_assessments')
-    .select('*')
-    .eq('id', id)
-    .single();
-
-  if (error) {
-    console.error('Error fetching assessment results:', error);
-    throw new Error(`Failed to fetch assessment results: ${error.message}`);
-  }
-
-  return data as CareAssessment;
-};
-
-/**
- * Subscribe to real-time updates for an assessment
- * @param id Assessment ID
- * @param onUpdate Callback when assessment is updated
- * @returns Cleanup function to unsubscribe
- */
-export const subscribeToAssessment = (
-  id: string,
-  onUpdate: (assessment: CareAssessment) => void
-) => {
-  const channel = supabase
-    .channel(`assessment-${id}`)
-    .on(
-      'postgres_changes',
-      {
-        event: 'UPDATE',
-        schema: 'public',
-        table: 'care_assessments',
-        filter: `id=eq.${id}`,
-      },
-      (payload) => {
-        onUpdate(payload.new as CareAssessment);
-      }
-    )
-    .subscribe();
-
-  return () => {
-    supabase.removeChannel(channel);
-  };
-};

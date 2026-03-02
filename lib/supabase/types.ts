@@ -9,6 +9,153 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      care_assessments: {
+        Row: {
+          id: string
+          created_at: string
+          user_name: string
+          user_email: string
+          company_name: string
+          company_website: string
+          detected_industry: string | null
+          user_role: string
+          responses: Json
+          company_context: string | null
+          insights: Json | null
+          solution_summary: string | null
+          culture_score: number | null
+          adoption_score: number | null
+          readiness_score: number | null
+          evolution_score: number | null
+          overall_score: number | null
+          status: string | null
+          pdf_url: string | null
+          email_sent: boolean | null
+          email_sent_at: string | null
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          user_name: string
+          user_email: string
+          company_name: string
+          company_website: string
+          detected_industry?: string | null
+          user_role: string
+          responses: Json
+          company_context?: string | null
+          insights?: Json | null
+          solution_summary?: string | null
+          culture_score?: number | null
+          adoption_score?: number | null
+          readiness_score?: number | null
+          evolution_score?: number | null
+          overall_score?: number | null
+          status?: string | null
+          pdf_url?: string | null
+          email_sent?: boolean | null
+          email_sent_at?: string | null
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          user_name?: string
+          user_email?: string
+          company_name?: string
+          company_website?: string
+          detected_industry?: string | null
+          user_role?: string
+          responses?: Json
+          company_context?: string | null
+          insights?: Json | null
+          solution_summary?: string | null
+          culture_score?: number | null
+          adoption_score?: number | null
+          readiness_score?: number | null
+          evolution_score?: number | null
+          overall_score?: number | null
+          status?: string | null
+          pdf_url?: string | null
+          email_sent?: boolean | null
+          email_sent_at?: string | null
+        }
+        Relationships: []
+      }
+      blog_posts: {
+        Row: {
+          id: string
+          slug: string
+          title: string
+          author: string
+          category: string
+          tags: string[]
+          excerpt: string
+          content_markdown: string | null
+          content_html: string | null
+          cover_image_url: string | null
+          featured: boolean
+          published: boolean
+          published_at: string
+          meta_description: string | null
+          seo_keywords: string[]
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          slug: string
+          title: string
+          author: string
+          category: string
+          tags?: string[]
+          excerpt: string
+          content_markdown?: string | null
+          content_html?: string | null
+          cover_image_url?: string | null
+          featured?: boolean
+          published?: boolean
+          published_at?: string
+          meta_description?: string | null
+          seo_keywords?: string[]
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          slug?: string
+          title?: string
+          author?: string
+          category?: string
+          tags?: string[]
+          excerpt?: string
+          content_markdown?: string | null
+          content_html?: string | null
+          cover_image_url?: string | null
+          featured?: boolean
+          published?: boolean
+          published_at?: string
+          meta_description?: string | null
+          seo_keywords?: string[]
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      tdg_knowledge_base: {
+        Row: {
+          id: string
+          last_indexed_at: string | null
+        }
+        Insert: {
+          id?: string
+          last_indexed_at?: string | null
+        }
+        Update: {
+          id?: string
+          last_indexed_at?: string | null
+        }
+        Relationships: []
+      }
       Website_Leads: {
         Row: {
           campaign: string | null

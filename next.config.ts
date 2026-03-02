@@ -18,6 +18,20 @@ const securityHeaders = [
     value: 'SAMEORIGIN',
   },
   {
+    key: 'Content-Security-Policy',
+    value: [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://snap.licdn.com https://www.linkedin.com",
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+      "img-src 'self' data: blob: https://*.supabase.co https://www.google-analytics.com https://px.ads.linkedin.com",
+      "font-src 'self' https://fonts.gstatic.com",
+      "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://px.ads.linkedin.com https://beacon-ai-chat.n8n.app",
+      "frame-src 'self' https://calendly.com",
+      "object-src 'none'",
+      "base-uri 'self'",
+    ].join('; '),
+  },
+  {
     key: 'Referrer-Policy',
     value: 'strict-origin-when-cross-origin',
   },

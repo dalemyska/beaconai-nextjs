@@ -91,6 +91,9 @@ export function useAssessment(options: UseAssessmentOptions = {}): UseAssessment
       return;
     }
 
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+
     try {
       const response = await fetch(
         `${SUPABASE_URL}/functions/v1/check-assessment-status`,
@@ -101,8 +104,11 @@ export function useAssessment(options: UseAssessmentOptions = {}): UseAssessment
             'apikey': SUPABASE_ANON_KEY,
           },
           body: JSON.stringify({ assessmentId }),
+          signal: controller.signal
         }
       );
+
+      clearTimeout(timeoutId);
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
@@ -149,8 +155,13 @@ export function useAssessment(options: UseAssessmentOptions = {}): UseAssessment
         optionsRef.current.onError?.('Assessment processing failed');
       }
     } catch (err) {
+      clearTimeout(timeoutId);
       console.error('Failed to fetch assessment status:', err);
-      // Network errors - don't immediately stop, could be transient
+      // Network errors and timeouts - don't immediately stop, could be transient
+      if (err instanceof Error && err.name === 'AbortError') {
+        console.warn('Assessment status check timed out, will retry on next poll');
+        return;
+      }
       setError(err instanceof Error ? err.message : 'Failed to fetch assessment status');
     }
   }, [assessmentId, stopPolling]);
@@ -196,6 +207,9 @@ export function useAssessment(options: UseAssessmentOptions = {}): UseAssessment
       console.log('Starting assessment processing:', id);
 
       // Call the process-assessment edge function
+      const processController = new AbortController();
+      const processTimeout = setTimeout(() => processController.abort(), 30000);
+
       const response = await fetch(
         `${SUPABASE_URL}/functions/v1/process-assessment`,
         {
@@ -205,8 +219,11 @@ export function useAssessment(options: UseAssessmentOptions = {}): UseAssessment
             'apikey': SUPABASE_ANON_KEY,
           },
           body: JSON.stringify({ assessmentId: id }),
+          signal: processController.signal
         }
       );
+
+      clearTimeout(processTimeout);
 
       if (!response.ok) {
         const errorText = await response.text();

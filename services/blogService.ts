@@ -8,13 +8,13 @@ export interface BlogPost {
   category: string;
   tags: string[];
   excerpt: string;
-  content_markdown?: string;
-  content_html?: string;
-  cover_image_url?: string;
+  content_markdown: string | null;
+  content_html: string | null;
+  cover_image_url: string | null;
   featured: boolean;
   published: boolean;
   published_at: string;
-  meta_description?: string;
+  meta_description: string | null;
   seo_keywords: string[];
   created_at: string;
   updated_at: string;
@@ -27,8 +27,7 @@ export interface PaginatedBlogPosts {
   currentPage: number;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const blogTable = () => (supabase as any).from('blog_posts');
+const blogTable = () => supabase.from('blog_posts');
 
 export const getBlogPosts = async (limit?: number): Promise<BlogPost[]> => {
   try {
@@ -171,8 +170,7 @@ export const getBlogTags = async (): Promise<string[]> => {
     }
 
     // Flatten all tag arrays and get unique tags
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const allTags = data?.reduce((acc: string[], item: any) => {
+    const allTags = data?.reduce((acc: string[], item: { tags: string[] | null }) => {
       if (item.tags && Array.isArray(item.tags)) {
         return [...acc, ...item.tags];
       }
@@ -199,8 +197,7 @@ export const getBlogCategories = async (): Promise<string[]> => {
       return [];
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const categories = [...new Set(data?.map((item: any) => item.category).filter(Boolean))] as string[];
+    const categories = [...new Set(data?.map((item: { category: string | null }) => item.category).filter(Boolean))] as string[];
     return categories || [];
   } catch (error) {
     console.log('Blog functionality not ready yet');
