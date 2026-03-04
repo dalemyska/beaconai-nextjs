@@ -53,16 +53,18 @@ export default function HomePage() {
 
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             <div className="text-center">
-              <div className="text-4xl font-bold text-beacon-gold mb-2">73%</div>
-              <p>of SMBs fail at AI implementation</p>
+              {/* TODO: Replace with verified statistic and source */}
+              <div className="text-4xl font-bold text-beacon-gold mb-2">XX%</div>
+              <p>of SMBs struggle with AI implementation</p>
             </div>
             <div className="text-center">
               <div className="text-4xl font-bold text-beacon-gold mb-2">5min</div>
               <p>to complete assessment</p>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-beacon-gold mb-2">$47M</div>
-              <p>saved using this framework</p>
+              {/* TODO: Replace with verified statistic and source */}
+              <div className="text-4xl font-bold text-beacon-gold mb-2">$XX</div>
+              <p>in value delivered using this framework</p>
             </div>
           </div>
 
