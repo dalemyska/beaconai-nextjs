@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Building, Users, GraduationCap, TrendingUp, ArrowDown } from 'lucide-react';
-import { NewsletterSignup } from '@/components/shared/NewsletterSignup';
+
 
 export const metadata: Metadata = {
   title: 'beaconAI - AI Implementation for SMBs',
@@ -247,15 +247,6 @@ export default function HomePage() {
                 <p className="text-sm text-beacon-gold">Sustainable transformation with real ROI</p>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Newsletter Signup Section */}
-      <section className="py-16 bg-gradient-to-r from-beacon-navy/5 to-beacon-teal/5">
-        <div className="container mx-auto px-6">
-          <div className="max-w-2xl mx-auto">
-            <NewsletterSignup />
           </div>
         </div>
       </section>
