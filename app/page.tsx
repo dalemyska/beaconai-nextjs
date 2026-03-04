@@ -90,51 +90,80 @@ export default function HomePage() {
             What We Do
           </h2>
           <p className="text-xl text-gray-700 mb-12 text-center max-w-3xl mx-auto">
-            After your assessment, we&apos;ll work together on the services that best fit your readiness level and business goals.
+            Every engagement starts with understanding where you are. Then we build from there.
           </p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card className="border-t-4 border-beacon-gold hover:shadow-lg transition-shadow">
+          {/* Entry Points — highlighted */}
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <Card className="border-2 border-beacon-gold bg-gradient-to-br from-beacon-gold/10 to-beacon-gold/5 hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-beacon-navy mb-3">AI Strategy Development</h3>
-                <p className="text-gray-700">Create your roadmap for practical AI adoption that aligns with business objectives and delivers measurable ROI.</p>
+                <div className="text-sm font-semibold text-beacon-gold uppercase tracking-wide mb-2">Free — Start Here</div>
+                <h3 className="text-xl font-bold text-beacon-navy mb-3">AI Readiness Assessment</h3>
+                <p className="text-gray-700 mb-4">Answer 12 quick questions and get your AI Readiness Score with a personalized report in 5 minutes.</p>
+                <Link
+                  href="/readiness-assessment"
+                  className="inline-block bg-beacon-gold text-beacon-navy px-6 py-3 font-semibold rounded-md hover:bg-beacon-gold/90 transition-all duration-300"
+                >
+                  Take the Assessment
+                </Link>
               </CardContent>
             </Card>
 
-            <Card className="border-t-4 border-beacon-gold hover:shadow-lg transition-shadow">
+            <Card className="border-2 border-beacon-gold bg-gradient-to-br from-beacon-gold/10 to-beacon-gold/5 hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-beacon-navy mb-3">Process Mapping & AI Agent Deployment</h3>
-                <p className="text-gray-700">Identify and automate your biggest time-wasters with custom AI agents that handle repetitive tasks.</p>
+                <div className="text-sm font-semibold text-beacon-gold uppercase tracking-wide mb-2">Free — 30 Minutes</div>
+                <h3 className="text-xl font-bold text-beacon-navy mb-3">AI Strategy Session</h3>
+                <p className="text-gray-700 mb-4">Review your assessment results and identify your highest-impact AI opportunities in a free consultation.</p>
+                <a
+                  href="https://app.usemotion.com/meet/dalemyska/consultation"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-beacon-gold text-beacon-navy px-6 py-3 font-semibold rounded-md hover:bg-beacon-gold/90 transition-all duration-300"
+                >
+                  Book Your Call
+                </a>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Core Services */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <Card className="border-t-4 border-beacon-teal hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-bold text-beacon-navy mb-3">AI Strategy & Roadmap Development</h3>
+                <p className="text-gray-700 text-sm">Custom implementation roadmap aligned to your business objectives and budget.</p>
               </CardContent>
             </Card>
 
-            <Card className="border-t-4 border-beacon-gold hover:shadow-lg transition-shadow">
+            <Card className="border-t-4 border-beacon-teal hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-beacon-navy mb-3">Custom Tool/Agent Development</h3>
-                <p className="text-gray-700">Build AI solutions that solve your specific challenges, tailored to your workflows and data.</p>
+                <h3 className="text-lg font-bold text-beacon-navy mb-3">Process Mapping & AI Agent Deployment</h3>
+                <p className="text-gray-700 text-sm">Identify and automate your biggest time-wasters with custom AI agents.</p>
               </CardContent>
             </Card>
 
-            <Card className="border-t-4 border-beacon-gold hover:shadow-lg transition-shadow">
+            <Card className="border-t-4 border-beacon-teal hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-beacon-navy mb-3">AI Coaching</h3>
-                <p className="text-gray-700">One-on-one executive guidance for AI leadership, strategy decisions, and organizational change management.</p>
+                <h3 className="text-lg font-bold text-beacon-navy mb-3">AI Training & Workshops</h3>
+                <p className="text-gray-700 text-sm">Hands-on sessions that get your team comfortable and productive with AI tools.</p>
               </CardContent>
             </Card>
 
-            <Card className="border-t-4 border-beacon-gold hover:shadow-lg transition-shadow">
+            <Card className="border-t-4 border-beacon-teal hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-beacon-navy mb-3">AI Training</h3>
-                <p className="text-gray-700">Get your entire team comfortable and capable with AI tools through hands-on workshops and ongoing support.</p>
+                <h3 className="text-lg font-bold text-beacon-navy mb-3">AI Coaching</h3>
+                <p className="text-gray-700 text-sm">One-on-one executive guidance for AI leadership and change management decisions.</p>
               </CardContent>
             </Card>
+          </div>
 
-            <Card className="border-t-4 border-beacon-gold hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-beacon-navy mb-3">Fractional AI Leadership</h3>
-                <p className="text-gray-700">Ongoing strategic guidance without the full-time cost - perfect for growing businesses scaling AI initiatives.</p>
-              </CardContent>
-            </Card>
+          {/* Ongoing Partnership */}
+          <div className="bg-beacon-navy rounded-lg p-8 text-center">
+            <div className="text-sm font-semibold text-beacon-gold uppercase tracking-wide mb-2">Ongoing Partnership</div>
+            <h3 className="text-2xl font-bold text-white mb-3">Fractional AI Leadership</h3>
+            <p className="text-gray-300 max-w-2xl mx-auto">
+              Ongoing strategic AI guidance without the full-time cost. For businesses scaling AI across the organization.
+            </p>
           </div>
         </div>
       </section>
