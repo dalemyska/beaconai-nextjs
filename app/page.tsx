@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Building, Users, GraduationCap, TrendingUp, ArrowDown } from 'lucide-react';
-
+import { HowItWorksSection } from '@/components/home/HowItWorksSection';
+import { FAQSection } from '@/components/home/FAQSection';
 
 export const metadata: Metadata = {
   title: 'beaconAI - AI Implementation for SMBs',
@@ -31,12 +32,22 @@ export default function HomePage() {
             Find Out If Your Business<br />Is Ready for AI
           </h1>
           <p className="text-beacon-gold text-xl mb-8">MIT AI Executive Academy | 10+ Years Fortune 50</p>
-          <Link
-            href="/readiness-assessment"
-            className="inline-block bg-beacon-gold text-beacon-navy px-12 py-4 text-xl font-bold rounded-md hover:bg-beacon-gold/90 transition-all duration-300 hover:-translate-y-1"
-          >
-            Take the Free Assessment
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/readiness-assessment"
+              className="inline-block bg-beacon-gold text-beacon-navy px-12 py-4 text-xl font-bold rounded-md hover:bg-beacon-gold/90 transition-all duration-300 hover:-translate-y-1"
+            >
+              Take the Free Assessment
+            </Link>
+            <a
+              href="https://app.usemotion.com/meet/dalemyska/consultation"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-transparent text-white border-2 border-white px-8 py-4 text-lg font-semibold rounded-md hover:bg-white hover:text-beacon-navy transition-all duration-300 hover:-translate-y-1"
+            >
+              Book a Free Strategy Call
+            </a>
+          </div>
           <p className="mt-6 text-lg opacity-90">5 minutes. 12 questions. Instant results.</p>
         </div>
       </section>
@@ -206,8 +217,11 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* How It Works Section */}
+      <HowItWorksSection />
+
       {/* Our Approach Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6 max-w-6xl">
           <h2 className="text-4xl font-bold text-beacon-navy mb-6 text-center">
             Our Approach
@@ -375,61 +389,87 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <FAQSection />
+
       {/* About Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6 max-w-4xl">
           <h2 className="text-4xl font-bold text-beacon-navy mb-8">
             Why Trust Me With Your AI Journey?
           </h2>
-          <div className="space-y-6 text-lg text-gray-700">
-            <p>I&apos;m Dale Myska. I spent over a decade at Fortune 50 companies helping other companies implement technology that saved millions. Then I watched small businesses get left behind in the AI revolution.</p>
-            <p>
-              After completing MIT&apos;s AI Executive Academy, I realized the problem:
-              Big consultancies charge $500K+. Cheap consultants don&apos;t understand operations.
-            </p>
-            <p>
-              Now I help 5 businesses at a time implement AI that actually works.
-              Start with the assessment to see if we&apos;re a fit.
-            </p>
+          <div className="flex flex-col md:flex-row gap-8 items-start">
+            <div className="flex-shrink-0 mx-auto md:mx-0">
+              <img
+                src="/dale-myska-headshot.jpeg"
+                alt="Dale Myska, founder of beaconAI"
+                className="w-48 h-48 rounded-full object-cover shadow-lg"
+              />
+            </div>
+            <div className="space-y-6 text-lg text-gray-700">
+              <p>I&apos;m Dale Myska. I spent over a decade at Fortune 50 companies helping other companies implement technology that saved millions. Then I watched small businesses get left behind in the AI revolution.</p>
+              <p>
+                After completing MIT&apos;s AI Executive Academy, I realized the problem:
+                Big consultancies charge $500K+. Cheap consultants don&apos;t understand operations.
+              </p>
+              <p>
+                Now I help 5 businesses at a time implement AI that actually works.
+                Start with the assessment to see if we&apos;re a fit.
+              </p>
+            </div>
           </div>
-          <div className="mt-8">
+          <div className="mt-8 flex flex-col sm:flex-row gap-4">
             <Link
               href="/readiness-assessment"
               className="inline-block bg-beacon-gold text-beacon-navy px-8 py-4 text-lg font-bold rounded-md hover:bg-beacon-gold/90 transition-all duration-300"
             >
-              Take the Assessment →
+              Take the Assessment
             </Link>
+            <a
+              href="https://app.usemotion.com/meet/dalemyska/consultation"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-beacon-navy text-white px-8 py-4 text-lg font-semibold rounded-md hover:bg-beacon-navy/90 transition-all duration-300"
+            >
+              Book a Free Strategy Call
+            </a>
           </div>
         </div>
       </section>
 
-      {/* Simple Contact Section */}
+      {/* Not Ready Section */}
       <section className="py-16 bg-beacon-navy text-white text-center">
         <div className="container mx-auto px-6">
           <h2 className="text-4xl font-bold mb-6">Not Ready for the Assessment?</h2>
           <p className="text-xl mb-8">
             Let&apos;s have a conversation instead.
           </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+            <a
+              href="https://app.usemotion.com/meet/dalemyska/consultation"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-beacon-gold text-beacon-navy px-8 py-4 text-lg font-bold rounded-md hover:bg-beacon-gold/90 transition-all duration-300"
+            >
+              Book a Strategy Call
+            </a>
+          </div>
           <div className="space-y-4 text-lg">
             <p>
               Email: <a href="mailto:dale@beaconai.ai" className="text-beacon-gold hover:underline">dale@beaconai.ai</a>
             </p>
             <p>
-              LinkedIn: <a href="https://linkedin.com/in/dalemyska" className="text-beacon-gold hover:underline" target="_blank" rel="noopener noreferrer">Connect with me</a>
+              Phone: <a href="tel:+13035697732" className="text-beacon-gold hover:underline">(303) 569-7732</a>
+            </p>
+            <p>
+              <a href="https://www.linkedin.com/in/dalemyska/" className="text-beacon-gold hover:underline" target="_blank" rel="noopener noreferrer">Connect with Dale on LinkedIn</a>
+              {' · '}
+              <a href="https://www.linkedin.com/company/beaconai-ai" className="text-beacon-gold hover:underline" target="_blank" rel="noopener noreferrer">Follow beaconAI</a>
             </p>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-12 bg-gray-50 text-center text-gray-600">
-        <p>&copy; 2024 beaconAI | Denver, Colorado</p>
-        <div className="mt-4 space-x-4 text-sm">
-          <Link href="/privacy-policy" className="hover:underline">Privacy Policy</Link>
-          <span>|</span>
-          <Link href="/terms-of-service" className="hover:underline">Terms of Service</Link>
-        </div>
-      </footer>
     </main>
   );
 }
