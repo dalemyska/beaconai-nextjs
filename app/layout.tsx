@@ -105,7 +105,7 @@ export default function RootLayout({
               description: "AI Implementation & Strategy Consulting - Practical Solutions for businesses of all sizes.",
               contactPoint: {
                 "@type": "ContactPoint",
-                telephone: "+1-720-249-1174",
+                telephone: "+1-303-569-7732",
                 contactType: "customer service",
                 email: "info@beaconai.ai",
               },
