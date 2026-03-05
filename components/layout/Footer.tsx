@@ -55,9 +55,6 @@ const Footer = memo(() => {
             <h3 className="font-montserrat text-lg font-semibold mb-4 text-beacon-gold">Resources</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/blog" className="text-gray-300 hover:text-beacon-gold transition-colors">Blog</Link>
-              </li>
-              <li>
                 <Link href="/privacy-policy" className="text-gray-300 hover:text-beacon-gold transition-colors">Privacy Policy</Link>
               </li>
               <li>
