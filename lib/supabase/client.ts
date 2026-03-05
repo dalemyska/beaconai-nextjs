@@ -1,13 +1,25 @@
 'use client';
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from './types';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? '';
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables');
+let _supabase: SupabaseClient<Database> | null = null;
+
+function getSupabase(): SupabaseClient<Database> {
+  if (!_supabase) {
+    if (!supabaseUrl || !supabaseAnonKey) {
+      console.warn('Missing Supabase environment variables — Supabase calls will fail at runtime');
+    }
+    _supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
+  }
+  return _supabase;
 }
 
-export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
+export const supabase = new Proxy({} as SupabaseClient<Database>, {
+  get(_target, prop) {
+    return Reflect.get(getSupabase(), prop);
+  },
+});
