@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { BlogList } from '@/components/blog/BlogList';
 import { NewsletterSignup } from '@/components/shared/NewsletterSignup';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'AI Strategy Blog - Implementation Insights',
   description: 'Expert insights on AI implementation, strategy, and transformation for executives. Real-world case studies and actionable advice.',
