@@ -2,11 +2,9 @@
 
 import { memo } from 'react';
 import Link from 'next/link';
-import { Facebook, Twitter, Linkedin, Mail, PhoneCall } from 'lucide-react';
+import { Linkedin, Mail, PhoneCall } from 'lucide-react';
 
 const Footer = memo(() => {
-  const currentYear = new Date().getFullYear();
-
   return (
     <footer className="bg-beacon-navy text-white">
       <div className="container-custom py-12">
@@ -26,13 +24,10 @@ const Footer = memo(() => {
               Practical Solutions. Measurable Results. For businesses of all sizes.
             </p>
             <div className="flex space-x-4 mt-6">
-              <a href="#" aria-label="Facebook" className="text-gray-300 hover:text-beacon-gold transition-colors">
-                <Facebook size={20} />
+              <a href="https://www.linkedin.com/in/dalemyska/" target="_blank" rel="noopener noreferrer" aria-label="Dale Myska on LinkedIn" className="text-gray-300 hover:text-beacon-gold transition-colors">
+                <Linkedin size={20} />
               </a>
-              <a href="#" aria-label="Twitter" className="text-gray-300 hover:text-beacon-gold transition-colors">
-                <Twitter size={20} />
-              </a>
-              <a href="#" aria-label="LinkedIn" className="text-gray-300 hover:text-beacon-gold transition-colors">
+              <a href="https://www.linkedin.com/company/beaconai-ai" target="_blank" rel="noopener noreferrer" aria-label="beaconAI on LinkedIn" className="text-gray-300 hover:text-beacon-gold transition-colors">
                 <Linkedin size={20} />
               </a>
             </div>
@@ -82,8 +77,8 @@ const Footer = memo(() => {
               </li>
               <li className="flex items-center">
                 <PhoneCall size={16} className="mr-2 text-beacon-gold" aria-hidden="true" />
-                <a href="tel:+17202491174" className="text-gray-300 hover:text-beacon-gold transition-colors">
-                  (720) 249-1174
+                <a href="tel:+13035697732" className="text-gray-300 hover:text-beacon-gold transition-colors">
+                  (303) 569-7732
                 </a>
               </li>
             </ul>
@@ -91,7 +86,7 @@ const Footer = memo(() => {
         </div>
 
         <div className="border-t border-gray-700 mt-12 pt-6 text-center text-sm text-gray-400">
-          <p>&copy; {currentYear} BeaconAI. All rights reserved.</p>
+          <p>&copy; 2025 beaconAI. All rights reserved.</p>
         </div>
       </div>
     </footer>

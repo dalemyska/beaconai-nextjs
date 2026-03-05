@@ -86,7 +86,7 @@ export default function PrivacyPolicyPage() {
           <div className="bg-gray-50 p-4 rounded-lg">
             <p>Beacon AI Consulting LLC</p>
             <p>Email: privacy@beaconai.ai</p>
-            <p>Phone: (720) 249-1174</p>
+            <p>Phone: (303) 569-7732</p>
           </div>
         </section>
       </div>

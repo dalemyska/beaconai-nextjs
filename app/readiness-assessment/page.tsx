@@ -63,12 +63,6 @@ export default function ReadinessAssessmentPage() {
             </div>
           </div>
 
-          <div className="bg-beacon-navy text-white p-6 rounded-lg text-center mb-12">
-            <p className="text-lg">
-              <strong>Used by executives at companies ranging from startups to Fortune 500 organizations</strong> to
-              evaluate their AI readiness and create actionable transformation roadmaps.
-            </p>
-          </div>
         </div>
       </div>
 

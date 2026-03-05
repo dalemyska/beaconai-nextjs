@@ -117,14 +117,24 @@ export default function ContactPage() {
             <p className="text-lg text-gray-700 mb-6">
               Follow my thoughts on AI implementation and business transformation.
             </p>
-            <a
-              href="https://linkedin.com/in/dalemyska"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-blue-600 text-white px-8 py-4 text-lg font-semibold rounded-md hover:bg-blue-700 transition-all duration-300"
-            >
-              Connect with Dale Myska
-            </a>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="https://www.linkedin.com/in/dalemyska/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-blue-600 text-white px-8 py-4 text-lg font-semibold rounded-md hover:bg-blue-700 transition-all duration-300"
+              >
+                Connect with Dale Myska
+              </a>
+              <a
+                href="https://www.linkedin.com/company/beaconai-ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-blue-600/80 text-white px-8 py-4 text-lg font-semibold rounded-md hover:bg-blue-700 transition-all duration-300"
+              >
+                Follow beaconAI
+              </a>
+            </div>
           </div>
         </div>
       </section>

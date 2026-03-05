@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
-import { Building, Users, GraduationCap, TrendingUp, ArrowDown } from 'lucide-react';
-import { NewsletterSignup } from '@/components/shared/NewsletterSignup';
+import { Building, Users, GraduationCap, TrendingUp, ArrowDown, Quote } from 'lucide-react';
+import { HowItWorksSection } from '@/components/home/HowItWorksSection';
+import { FAQSection } from '@/components/home/FAQSection';
 
 export const metadata: Metadata = {
   title: 'beaconAI - AI Implementation for SMBs',
@@ -31,12 +32,22 @@ export default function HomePage() {
             Find Out If Your Business<br />Is Ready for AI
           </h1>
           <p className="text-beacon-gold text-xl mb-8">MIT AI Executive Academy | 10+ Years Fortune 50</p>
-          <Link
-            href="/readiness-assessment"
-            className="inline-block bg-beacon-gold text-beacon-navy px-12 py-4 text-xl font-bold rounded-md hover:bg-beacon-gold/90 transition-all duration-300 hover:-translate-y-1"
-          >
-            Take the Free Assessment
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/readiness-assessment"
+              className="inline-block bg-beacon-gold text-beacon-navy px-12 py-4 text-xl font-bold rounded-md hover:bg-beacon-gold/90 transition-all duration-300 hover:-translate-y-1"
+            >
+              Take the Free Assessment
+            </Link>
+            <a
+              href="https://app.usemotion.com/meet/dalemyska/consultation"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-transparent text-white border-2 border-white px-8 py-4 text-lg font-semibold rounded-md hover:bg-white hover:text-beacon-navy transition-all duration-300 hover:-translate-y-1"
+            >
+              Book a Free Strategy Call
+            </a>
+          </div>
           <p className="mt-6 text-lg opacity-90">5 minutes. 12 questions. Instant results.</p>
         </div>
       </section>
@@ -53,18 +64,23 @@ export default function HomePage() {
 
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             <div className="text-center">
-              <div className="text-4xl font-bold text-beacon-gold mb-2">73%</div>
-              <p>of SMBs fail at AI implementation</p>
+              {/* Source: RAND Corporation, "The Root Causes of Failure for Artificial Intelligence Projects," 2024 */}
+              <div className="text-4xl font-bold text-beacon-gold mb-2">80%</div>
+              <p>of AI projects fail before reaching production</p>
             </div>
             <div className="text-center">
               <div className="text-4xl font-bold text-beacon-gold mb-2">5min</div>
               <p>to complete assessment</p>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-beacon-gold mb-2">$47M</div>
-              <p>saved using this framework</p>
+              {/* Source: Salesforce SMB Trends Report, December 2024 (3,350 SMB leaders surveyed) */}
+              <div className="text-4xl font-bold text-beacon-gold mb-2">91%</div>
+              <p>of SMBs with AI report revenue growth</p>
             </div>
           </div>
+          <p className="text-xs text-gray-400 mt-4 text-center">
+            Sources: RAND Corporation 2024 · Salesforce SMB Trends Report 2024
+          </p>
 
           <Link
             href="/readiness-assessment"
@@ -88,51 +104,80 @@ export default function HomePage() {
             What We Do
           </h2>
           <p className="text-xl text-gray-700 mb-12 text-center max-w-3xl mx-auto">
-            After your assessment, we&apos;ll work together on the services that best fit your readiness level and business goals.
+            Every engagement starts with understanding where you are. Then we build from there.
           </p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card className="border-t-4 border-beacon-gold hover:shadow-lg transition-shadow">
+          {/* Entry Points — highlighted */}
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <Card className="border-2 border-beacon-gold bg-gradient-to-br from-beacon-gold/10 to-beacon-gold/5 hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-beacon-navy mb-3">AI Strategy Development</h3>
-                <p className="text-gray-700">Create your roadmap for practical AI adoption that aligns with business objectives and delivers measurable ROI.</p>
+                <div className="text-sm font-semibold text-beacon-gold uppercase tracking-wide mb-2">Free — Start Here</div>
+                <h3 className="text-xl font-bold text-beacon-navy mb-3">AI Readiness Assessment</h3>
+                <p className="text-gray-700 mb-4">Answer 12 quick questions and get your AI Readiness Score with a personalized report in 5 minutes.</p>
+                <Link
+                  href="/readiness-assessment"
+                  className="inline-block bg-beacon-gold text-beacon-navy px-6 py-3 font-semibold rounded-md hover:bg-beacon-gold/90 transition-all duration-300"
+                >
+                  Take the Assessment
+                </Link>
               </CardContent>
             </Card>
 
-            <Card className="border-t-4 border-beacon-gold hover:shadow-lg transition-shadow">
+            <Card className="border-2 border-beacon-gold bg-gradient-to-br from-beacon-gold/10 to-beacon-gold/5 hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-beacon-navy mb-3">Process Mapping & AI Agent Deployment</h3>
-                <p className="text-gray-700">Identify and automate your biggest time-wasters with custom AI agents that handle repetitive tasks.</p>
+                <div className="text-sm font-semibold text-beacon-gold uppercase tracking-wide mb-2">Free — 30 Minutes</div>
+                <h3 className="text-xl font-bold text-beacon-navy mb-3">AI Strategy Session</h3>
+                <p className="text-gray-700 mb-4">Review your assessment results and identify your highest-impact AI opportunities in a free consultation.</p>
+                <a
+                  href="https://app.usemotion.com/meet/dalemyska/consultation"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-beacon-gold text-beacon-navy px-6 py-3 font-semibold rounded-md hover:bg-beacon-gold/90 transition-all duration-300"
+                >
+                  Book Your Call
+                </a>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Core Services */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <Card className="border-t-4 border-beacon-teal hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-bold text-beacon-navy mb-3">AI Strategy & Roadmap Development</h3>
+                <p className="text-gray-700 text-sm">Custom implementation roadmap aligned to your business objectives and budget.</p>
               </CardContent>
             </Card>
 
-            <Card className="border-t-4 border-beacon-gold hover:shadow-lg transition-shadow">
+            <Card className="border-t-4 border-beacon-teal hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-beacon-navy mb-3">Custom Tool/Agent Development</h3>
-                <p className="text-gray-700">Build AI solutions that solve your specific challenges, tailored to your workflows and data.</p>
+                <h3 className="text-lg font-bold text-beacon-navy mb-3">Process Mapping & AI Agent Deployment</h3>
+                <p className="text-gray-700 text-sm">Identify and automate your biggest time-wasters with custom AI agents.</p>
               </CardContent>
             </Card>
 
-            <Card className="border-t-4 border-beacon-gold hover:shadow-lg transition-shadow">
+            <Card className="border-t-4 border-beacon-teal hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-beacon-navy mb-3">AI Coaching</h3>
-                <p className="text-gray-700">One-on-one executive guidance for AI leadership, strategy decisions, and organizational change management.</p>
+                <h3 className="text-lg font-bold text-beacon-navy mb-3">AI Training & Workshops</h3>
+                <p className="text-gray-700 text-sm">Hands-on sessions that get your team comfortable and productive with AI tools.</p>
               </CardContent>
             </Card>
 
-            <Card className="border-t-4 border-beacon-gold hover:shadow-lg transition-shadow">
+            <Card className="border-t-4 border-beacon-teal hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-beacon-navy mb-3">AI Training</h3>
-                <p className="text-gray-700">Get your entire team comfortable and capable with AI tools through hands-on workshops and ongoing support.</p>
+                <h3 className="text-lg font-bold text-beacon-navy mb-3">AI Coaching</h3>
+                <p className="text-gray-700 text-sm">One-on-one executive guidance for AI leadership and change management decisions.</p>
               </CardContent>
             </Card>
+          </div>
 
-            <Card className="border-t-4 border-beacon-gold hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-beacon-navy mb-3">Fractional AI Leadership</h3>
-                <p className="text-gray-700">Ongoing strategic guidance without the full-time cost - perfect for growing businesses scaling AI initiatives.</p>
-              </CardContent>
-            </Card>
+          {/* Ongoing Partnership */}
+          <div className="bg-beacon-navy rounded-lg p-8 text-center">
+            <div className="text-sm font-semibold text-beacon-gold uppercase tracking-wide mb-2">Ongoing Partnership</div>
+            <h3 className="text-2xl font-bold text-white mb-3">Fractional AI Leadership</h3>
+            <p className="text-gray-300 max-w-2xl mx-auto">
+              Ongoing strategic AI guidance without the full-time cost. For businesses scaling AI across the organization.
+            </p>
           </div>
         </div>
       </section>
@@ -175,8 +220,11 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* How It Works Section */}
+      <HowItWorksSection />
+
       {/* Our Approach Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6 max-w-6xl">
           <h2 className="text-4xl font-bold text-beacon-navy mb-6 text-center">
             Our Approach
@@ -249,11 +297,27 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Newsletter Signup Section */}
-      <section className="py-16 bg-gradient-to-r from-beacon-navy/5 to-beacon-teal/5">
-        <div className="container mx-auto px-6">
-          <div className="max-w-2xl mx-auto">
-            <NewsletterSignup />
+      {/* Featured Testimonial Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <div className="text-sm font-semibold text-beacon-teal uppercase tracking-wide mb-8 text-center">
+            Client Results
+          </div>
+          <div className="border-l-4 border-beacon-gold bg-gray-50 rounded-r-lg p-8 md:p-10 shadow-sm">
+            <div className="flex flex-col md:flex-row gap-8 items-start">
+              {/* Flexible layout — image can slot in here on left later */}
+              <div className="flex-1">
+                <Quote className="text-beacon-gold/40 mb-4" size={40} />
+                <blockquote className="text-xl md:text-2xl text-gray-800 leading-relaxed mb-6">
+                  Dale built a custom AI quoting tool tailored to my workflow. It cut my proposal time from 30 minutes to 15 and saves me 1-2 hours every day. Now every proposal looks consistent, professional, and on-brand.
+                </blockquote>
+                <div className="text-gray-700">
+                  <p className="font-bold text-beacon-navy">Eddy Gomez</p>
+                  <p className="text-sm">Eddy Gomez Agency LLC</p>
+                  <p className="text-sm">American Family Insurance</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -353,61 +417,87 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <FAQSection />
+
       {/* About Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6 max-w-4xl">
           <h2 className="text-4xl font-bold text-beacon-navy mb-8">
             Why Trust Me With Your AI Journey?
           </h2>
-          <div className="space-y-6 text-lg text-gray-700">
-            <p>I&apos;m Dale Myska. I spent over a decade at Fortune 50 companies helping other companies implement technology that saved millions. Then I watched small businesses get left behind in the AI revolution.</p>
-            <p>
-              After completing MIT&apos;s AI Executive Academy, I realized the problem:
-              Big consultancies charge $500K+. Cheap consultants don&apos;t understand operations.
-            </p>
-            <p>
-              Now I help 5 businesses at a time implement AI that actually works.
-              Start with the assessment to see if we&apos;re a fit.
-            </p>
+          <div className="flex flex-col md:flex-row gap-8 items-start">
+            <div className="flex-shrink-0 mx-auto md:mx-0">
+              <img
+                src="/dale-myska-headshot.jpeg"
+                alt="Dale Myska, founder of beaconAI"
+                className="w-48 h-48 rounded-full object-cover shadow-lg"
+              />
+            </div>
+            <div className="space-y-6 text-lg text-gray-700">
+              <p>I&apos;m Dale Myska. I spent over a decade at Fortune 50 companies helping other companies implement technology that saved millions. Then I watched small businesses get left behind in the AI revolution.</p>
+              <p>
+                After completing MIT&apos;s AI Executive Academy, I realized the problem:
+                Big consultancies charge $500K+. Cheap consultants don&apos;t understand operations.
+              </p>
+              <p>
+                Now I help 5 businesses at a time implement AI that actually works.
+                Start with the assessment to see if we&apos;re a fit.
+              </p>
+            </div>
           </div>
-          <div className="mt-8">
+          <div className="mt-8 flex flex-col sm:flex-row gap-4">
             <Link
               href="/readiness-assessment"
               className="inline-block bg-beacon-gold text-beacon-navy px-8 py-4 text-lg font-bold rounded-md hover:bg-beacon-gold/90 transition-all duration-300"
             >
-              Take the Assessment →
+              Take the Assessment
             </Link>
+            <a
+              href="https://app.usemotion.com/meet/dalemyska/consultation"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-beacon-navy text-white px-8 py-4 text-lg font-semibold rounded-md hover:bg-beacon-navy/90 transition-all duration-300"
+            >
+              Book a Free Strategy Call
+            </a>
           </div>
         </div>
       </section>
 
-      {/* Simple Contact Section */}
+      {/* Not Ready Section */}
       <section className="py-16 bg-beacon-navy text-white text-center">
         <div className="container mx-auto px-6">
           <h2 className="text-4xl font-bold mb-6">Not Ready for the Assessment?</h2>
           <p className="text-xl mb-8">
             Let&apos;s have a conversation instead.
           </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+            <a
+              href="https://app.usemotion.com/meet/dalemyska/consultation"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-beacon-gold text-beacon-navy px-8 py-4 text-lg font-bold rounded-md hover:bg-beacon-gold/90 transition-all duration-300"
+            >
+              Book a Strategy Call
+            </a>
+          </div>
           <div className="space-y-4 text-lg">
             <p>
               Email: <a href="mailto:dale@beaconai.ai" className="text-beacon-gold hover:underline">dale@beaconai.ai</a>
             </p>
             <p>
-              LinkedIn: <a href="https://linkedin.com/in/dalemyska" className="text-beacon-gold hover:underline" target="_blank" rel="noopener noreferrer">Connect with me</a>
+              Phone: <a href="tel:+13035697732" className="text-beacon-gold hover:underline">(303) 569-7732</a>
+            </p>
+            <p>
+              <a href="https://www.linkedin.com/in/dalemyska/" className="text-beacon-gold hover:underline" target="_blank" rel="noopener noreferrer">Connect with Dale on LinkedIn</a>
+              {' · '}
+              <a href="https://www.linkedin.com/company/beaconai-ai" className="text-beacon-gold hover:underline" target="_blank" rel="noopener noreferrer">Follow beaconAI</a>
             </p>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-12 bg-gray-50 text-center text-gray-600">
-        <p>&copy; 2024 beaconAI | Denver, Colorado</p>
-        <div className="mt-4 space-x-4 text-sm">
-          <Link href="/privacy-policy" className="hover:underline">Privacy Policy</Link>
-          <span>|</span>
-          <Link href="/terms-of-service" className="hover:underline">Terms of Service</Link>
-        </div>
-      </footer>
     </main>
   );
 }
