@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
-import { Building, Users, GraduationCap, TrendingUp, ArrowDown } from 'lucide-react';
+import { Building, Users, GraduationCap, TrendingUp, ArrowDown, Quote } from 'lucide-react';
 import { HowItWorksSection } from '@/components/home/HowItWorksSection';
 import { FAQSection } from '@/components/home/FAQSection';
 
@@ -64,20 +64,23 @@ export default function HomePage() {
 
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             <div className="text-center">
-              {/* TODO: Replace with verified statistic and source */}
-              <div className="text-4xl font-bold text-beacon-gold mb-2">XX%</div>
-              <p>of SMBs struggle with AI implementation</p>
+              {/* Source: RAND Corporation, "The Root Causes of Failure for Artificial Intelligence Projects," 2024 */}
+              <div className="text-4xl font-bold text-beacon-gold mb-2">80%</div>
+              <p>of AI projects fail before reaching production</p>
             </div>
             <div className="text-center">
               <div className="text-4xl font-bold text-beacon-gold mb-2">5min</div>
               <p>to complete assessment</p>
             </div>
             <div className="text-center">
-              {/* TODO: Replace with verified statistic and source */}
-              <div className="text-4xl font-bold text-beacon-gold mb-2">$XX</div>
-              <p>in value delivered using this framework</p>
+              {/* Source: Salesforce SMB Trends Report, December 2024 (3,350 SMB leaders surveyed) */}
+              <div className="text-4xl font-bold text-beacon-gold mb-2">91%</div>
+              <p>of SMBs with AI report revenue growth</p>
             </div>
           </div>
+          <p className="text-xs text-gray-400 mt-4 text-center">
+            Sources: RAND Corporation 2024 · Salesforce SMB Trends Report 2024
+          </p>
 
           <Link
             href="/readiness-assessment"
@@ -294,8 +297,33 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* What Executives Tell Me Section */}
+      {/* Featured Testimonial Section */}
       <section className="py-16 bg-white">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <div className="text-sm font-semibold text-beacon-teal uppercase tracking-wide mb-8 text-center">
+            Client Results
+          </div>
+          <div className="border-l-4 border-beacon-gold bg-gray-50 rounded-r-lg p-8 md:p-10 shadow-sm">
+            <div className="flex flex-col md:flex-row gap-8 items-start">
+              {/* Flexible layout — image can slot in here on left later */}
+              <div className="flex-1">
+                <Quote className="text-beacon-gold/40 mb-4" size={40} />
+                <blockquote className="text-xl md:text-2xl text-gray-800 leading-relaxed mb-6">
+                  Dale built a custom AI quoting tool tailored to my workflow. It cut my proposal time from 30 minutes to 15 and saves me 1-2 hours every day. Now every proposal looks consistent, professional, and on-brand.
+                </blockquote>
+                <div className="text-gray-700">
+                  <p className="font-bold text-beacon-navy">Eddy Gomez</p>
+                  <p className="text-sm">Eddy Gomez Agency LLC</p>
+                  <p className="text-sm">American Family Insurance</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What Executives Tell Me Section */}
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6 max-w-6xl">
           <h2 className="text-4xl font-bold text-beacon-navy mb-6 text-center">
             What Executives Tell Me
@@ -393,7 +421,7 @@ export default function HomePage() {
       <FAQSection />
 
       {/* About Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6 max-w-4xl">
           <h2 className="text-4xl font-bold text-beacon-navy mb-8">
             Why Trust Me With Your AI Journey?
