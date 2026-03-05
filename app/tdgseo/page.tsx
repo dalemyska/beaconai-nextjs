@@ -14,10 +14,13 @@ import { Switch } from '@/components/ui/switch';
 
 // Create an untyped Supabase client for TDG-specific tables
 // These tables exist in the shared Supabase project but aren't typed in beaconAI's schema
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+}
+
 
 // Simple password for internal tool access (loaded from env to keep out of client bundle source)
 const TOOL_PASSWORD = process.env.NEXT_PUBLIC_TDG_TOOL_PASSWORD || '';
@@ -292,7 +295,7 @@ export default function TDGSeoPage() {
 
   const fetchKBStats = async () => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await getSupabase()
         .from('tdg_knowledge_base')
         .select('last_indexed_at')
         .order('last_indexed_at', { ascending: false })
@@ -312,7 +315,7 @@ export default function TDGSeoPage() {
   const refreshKnowledgeBase = async () => {
     setCrawling(true);
     try {
-      const { data, error } = await supabase.functions.invoke('tdg-crawl-kb');
+      const { data, error } = await getSupabase().functions.invoke('tdg-crawl-kb');
 
       if (error) throw error;
 
@@ -374,7 +377,7 @@ export default function TDGSeoPage() {
         }
       });
 
-      const { data, error } = await supabase.functions.invoke('tdg-seo-generate', {
+      const { data, error } = await getSupabase().functions.invoke('tdg-seo-generate', {
         body: { promptType: selectedPrompt, inputs: finalInputs, includeKB }
       });
 
