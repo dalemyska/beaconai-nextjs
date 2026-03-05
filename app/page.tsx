@@ -446,7 +446,7 @@ export default function HomePage() {
               </p>
             </div>
           </div>
-          <div className="mt-8 flex flex-col sm:flex-row gap-4">
+          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/readiness-assessment"
               className="inline-block bg-beacon-gold text-beacon-navy px-8 py-4 text-lg font-bold rounded-md hover:bg-beacon-gold/90 transition-all duration-300"
