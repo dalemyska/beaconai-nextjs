@@ -80,7 +80,7 @@ const Header = memo(() => {
           </nav>
 
           <button
-            className="md:hidden"
+            className="md:hidden p-2"
             onClick={toggleMenu}
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMenuOpen}
