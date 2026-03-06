@@ -27,6 +27,23 @@ Allow: /
 User-agent: LinkedInBot
 Allow: /
 
+# AI crawlers
+User-agent: ChatGPT-User
+Allow: /
+Allow: /llms.txt
+
+User-agent: PerplexityBot
+Allow: /
+Allow: /llms.txt
+
+User-agent: ClaudeBot
+Allow: /
+Allow: /llms.txt
+
+User-agent: Applebot-Extended
+Allow: /
+Allow: /llms.txt
+
 # Disallow specific private paths
 Disallow: /admin/
 Disallow: /private/
