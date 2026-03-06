@@ -99,10 +99,21 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              name: "BeaconAI",
+              name: "beaconAI",
               url: "https://beaconai.ai",
               logo: "https://beaconai.ai/lovable-uploads/d3757dcc-3a2b-46f7-94ce-de50e39f9312.png",
               description: "AI Implementation & Strategy Consulting - Practical Solutions for businesses of all sizes.",
+              sameAs: [
+                "https://www.linkedin.com/company/beaconai-ai",
+                "https://www.linkedin.com/in/dalemyska/",
+              ],
+              founder: {
+                "@type": "Person",
+                name: "Dale Myska",
+                jobTitle: "Founder & AI Strategy Consultant",
+                url: "https://beaconai.ai/about",
+                sameAs: "https://www.linkedin.com/in/dalemyska/",
+              },
               contactPoint: {
                 "@type": "ContactPoint",
                 telephone: "+1-303-569-7732",
