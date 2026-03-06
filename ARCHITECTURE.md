@@ -11,7 +11,6 @@
 | Hosting | Vercel | Auto-deploy from `main` branch |
 | Domain | beaconai.ai | beaconai.consulting redirects via Cloudflare |
 | Analytics | Google Analytics 4 + LinkedIn Insight | GA ID: G-9WXC56LQDG |
-| Memory | Muninn | SQLite per project, fragility-based write gating |
 
 ---
 
@@ -202,9 +201,9 @@ Periodic -> QAUDIT (full system health) -> QSECURITY (auth/secrets)
 ## Permissions Architecture
 
 ```
-File edits -> Muninn PreToolUse hook (fragility check) -> Auto-pass or warn/block
-Destructive ops -> Always require explicit user approval
-Recurring patterns -> muninn_learn_add (preference) -> muninn_predict at session start
+Two-tier model:
+- Pre-authorized: file ops, tests, linters, git add/commit
+- Require approval: push, delete, migrate, deploy
 ```
 
 ---

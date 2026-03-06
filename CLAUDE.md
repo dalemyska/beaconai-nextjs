@@ -18,45 +18,16 @@ built with Next.js 16 (App Router), React 19, TypeScript, Supabase, and Tailwind
 
 ---
 
-## 1 -- Muninn Memory Tools
-
-This project uses [Muninn](https://github.com/ravnltd/muninn) for persistent memory across sessions.
-
-| Tool | Purpose |
-|------|---------|
-| `muninn_query` | Search memory for context on files, decisions, issues, patterns |
-| `muninn_predict` | Get predicted context for current task |
-| `muninn_check` | Check file knowledge and fragility before editing |
-| `muninn_file_add` | Register or update file knowledge after changes |
-| `muninn_decision_add` | Record architectural or design decisions |
-| `muninn_issue` | Track bugs, issues, pending problems (action: add/resolve) |
-| `muninn_learn_add` | Save patterns, gotchas, preferences, conventions |
-| `muninn_suggest` | Suggest files for a task (semantic/embedding search) |
-| `muninn "status"` | Project health overview and pending issues |
-
-**Search strategy:**
-1. Start sessions with `muninn_predict` for task-relevant context
-2. Before editing unfamiliar files, run `muninn_check` to load file history and fragility
-3. When debugging, `muninn_query` the symptom before reading code
-
-**After changes:**
-- `muninn_file_add` for every file created or significantly modified
-- `muninn_decision_add` for architectural choices with rationale
-- `muninn_learn_add` for patterns discovered, gotchas encountered, or preferences established
-
----
-
-## 2 -- Before Coding
+## 1 -- Before Coding
 
 - **BP-1 (MUST)** Ask clarifying questions before starting. Draft approach in plan mode.
 - **BP-2 (MUST)** Read existing code before modifying. Never propose changes to unread files.
 - **BP-3 (MUST)** Check ROADMAP.md for current priorities and constraints.
-- **BP-4 (MUST)** Run `muninn_check` before editing unfamiliar files. If fragility >= 7, explain approach and wait for approval.
-- **BP-5 (SHOULD)** Use sub-agents for codebase exploration before planning changes.
+- **BP-4 (SHOULD)** Use sub-agents for codebase exploration before planning changes.
 
 ---
 
-## 3 -- While Coding
+## 2 -- While Coding
 
 - **WC-1 (MUST)** Use TypeScript strict mode. No `any` unless unavoidable (add eslint-disable comment).
 - **WC-2 (MUST)** Use domain vocabulary: CARE (Culture, Adoption, Readiness, Evolution), assessment, wizard, step, score, insights, lead.
@@ -68,7 +39,7 @@ This project uses [Muninn](https://github.com/ravnltd/muninn) for persistent mem
 
 ---
 
-## 4 -- Testing
+## 3 -- Testing
 
 - **TS-1 (MUST)** Test assessment wizard flows (submission, polling, fallback, error states).
 - **TS-2 (MUST)** Test Supabase service functions with mocked responses.
@@ -77,7 +48,7 @@ This project uses [Muninn](https://github.com/ravnltd/muninn) for persistent mem
 
 ---
 
-## 5 -- Database (Supabase)
+## 4 -- Database (Supabase)
 
 - **DB-1 (MUST)** Use Supabase client from `lib/supabase/client.ts`. Never create additional clients.
 - **DB-2 (MUST)** Edge Functions handle assessment submissions (bypasses RLS). Do not use direct inserts for `care_assessments`.
@@ -92,7 +63,7 @@ This project uses [Muninn](https://github.com/ravnltd/muninn) for persistent mem
 
 ---
 
-## 6 -- Code Organization
+## 5 -- Code Organization
 
 ```
 app/                          # Next.js App Router pages
@@ -120,20 +91,20 @@ public/                       # Static assets
 
 ---
 
-## 7 -- Tooling Gates
+## 6 -- Tooling Gates
 
 ```bash
 npm run build          # TypeScript compilation + Next.js build
-npx next lint          # ESLint with Next.js rules
+npm run lint           # ESLint with Next.js rules
 npx tsc --noEmit       # Type checking only
 ```
 
 - **TG-1 (MUST)** `npm run build` must pass before committing.
-- **TG-2 (SHOULD)** Run `npx next lint` on changed files.
+- **TG-2 (SHOULD)** Run `npm run lint` on changed files.
 
 ---
 
-## 8 -- Git
+## 7 -- Git
 
 - **GIT-1 (MUST)** Use Conventional Commits: `feat:`, `fix:`, `docs:`, `refactor:`, `chore:`.
 - **GIT-2 (MUST)** Do not commit `.env.local` or any secrets.
@@ -141,7 +112,7 @@ npx tsc --noEmit       # Type checking only
 
 ---
 
-## 9 -- Context Management
+## 8 -- Context Management
 
 - **CM-1 (MUST)** Commit after completing each logical unit of work.
 - **CM-2 (MUST)** Before reading a file, check if it was already read in this session.
@@ -152,9 +123,8 @@ npx tsc --noEmit       # Type checking only
 
 ---
 
-## 10 -- Debugging Protocol
+## 9 -- Debugging Protocol
 
-- **DB-0 (MUST)** Run `muninn_query` to check for known issues related to the bug before reading code.
 - **DB-1 (MUST)** Diagnose before fixing. Read the full file, check Supabase queries, check Edge Function responses.
 - **DB-2 (MUST)** Check Supabase silent failures: empty array = wrong table/column name, RLS blocking returns empty not error.
 - **DB-3 (MUST)** Check Edge Function responses: verify `apikey` header, check function URL path, inspect response body for error details.
@@ -168,7 +138,7 @@ npx tsc --noEmit       # Type checking only
 
 ---
 
-## 11 -- Pipeline Rules
+## 10 -- Pipeline Rules
 
 - **PL-1 (MUST)** CARE assessment pipeline: submit via Edge Function -> poll status via Realtime -> display results. Never skip the Edge Function.
 - **PL-2 (MUST)** Emergency lead capture: if primary submission fails, call `captureLeadFallback()`. Never lose a lead.
@@ -177,16 +147,16 @@ npx tsc --noEmit       # Type checking only
 
 ---
 
-## 12 -- Session Management
+## 11 -- Session Management
 
-- **SM-1 (SHOULD)** Start every session with `qnew` to load best practices, roadmap, and Muninn context.
+- **SM-1 (SHOULD)** Start every session with `qnew` to load best practices, roadmap, and context.
 - **SM-2 (SHOULD)** Stay in plan mode for 90% of the work. Switch to auto-edit only when confident.
 - **SM-3 (MUST)** Refresh the session after creating or modifying skills, hooks, or shared artifacts.
 - **SM-4 (SHOULD)** Scope each session to one feature, one bug fix, or one focused task.
 
 ---
 
-## 13 -- Coaching Loop
+## 12 -- Coaching Loop
 
 When Claude Code drifts during execution:
 
@@ -198,23 +168,17 @@ When Claude Code drifts during execution:
 
 ---
 
-## 14 -- Permissions
+## 13 -- Permissions
 
-This project uses Muninn's fragility system as the default write gatekeeper.
+**Two-tier model:**
 
-Pre-authorized (no approval needed):
+**Pre-authorized (no approval needed):**
 - File reads, writes, and creation
 - Running tests, linters, formatters
-- Non-destructive bash commands
+- Non-destructive bash commands (read, list, search, curl for testing)
 - Git add and commit
-- All Muninn memory operations (file_add, decision_add, learn_add)
 
-Muninn-gated (automatic, contextual):
-- Files with fragility >= 7 trigger warning/block via PreToolUse hook
-- Run `muninn_check` before editing unfamiliar files
-- If Muninn blocks, explain approach and wait for approval
-
-Require explicit user approval:
+**Require explicit approval:**
 - git push / force push
 - Database schema migrations (Supabase)
 - File or directory deletion
@@ -223,11 +187,9 @@ Require explicit user approval:
 
 **PM-1 (MUST)** Never pre-authorize destructive operations. File deletion, force push, database drops, and production deployments always require explicit approval.
 
-**Adaptive learning:** Record recurring approval patterns with `muninn_learn_add` (category: "preference"). These surface via `muninn_predict` at session start.
-
 ---
 
-## 15 -- Quality Gates (Hooks)
+## 14 -- Quality Gates (Hooks)
 
 | Hook | Trigger | Checks |
 |------|---------|--------|
@@ -244,7 +206,7 @@ Require explicit user approval:
 
 ---
 
-## 16 -- Shared Context Artifacts
+## 15 -- Shared Context Artifacts
 
 Files consumed by multiple parts of the system:
 
@@ -254,6 +216,20 @@ Files consumed by multiple parts of the system:
 | `lib/supabase/types.ts` | Database type definitions | All services, typed queries |
 | `utils/sanitizeHtml.ts` | HTML sanitization rules | Assessment results, blog rendering |
 | `utils/inputSanitization.ts` | Input validation | All form components |
+| `app/sitemap.ts` | Dynamic sitemap (7 routes) | Search engines, AI crawlers |
+| `public/llms.txt` | AI crawler discoverability | ChatGPT, Perplexity, Claude, Apple |
+| `components/home/FAQSection.tsx` | FAQ content (synced with JSON-LD in page.tsx) | Homepage, structured data |
+
+---
+
+## 16 -- Reflect
+
+After significant sessions, run `/reflect` to capture learnings into skill files.
+
+- **Manual:** Type `/reflect` or "reflect on this session" to analyze corrections and patterns
+- **Scope:** Each learning is tagged `system` (improves skill for all users) or `personal` (specific to this workflow)
+- **Confidence:** HIGH = explicit corrections/preferences -> direct skill edits. MEDIUM = repeated patterns -> "Learned Patterns" section. LOW = logged only.
+- **Automatic:** When `reflect on` is enabled, session-end hook analyzes automatically (toggle with `reflect off`)
 
 ---
 
@@ -265,8 +241,6 @@ Understand all BEST PRACTICES listed in CLAUDE.md.
 Your code SHOULD ALWAYS follow these best practices.
 Read ROADMAP.md for current tasks and priorities.
 Read ARCHITECTURE.md if this is your first session or you need system context.
-Run muninn_predict for the current task to load relevant context.
-Check muninn "status" for project health and pending issues.
 ```
 
 ### QPLAN
@@ -275,7 +249,7 @@ Analyze similar parts of the codebase and determine whether your plan:
 - is consistent with rest of codebase
 - introduces minimal changes
 - reuses existing code
-- respects component/service/lib separation (Section 6)
+- respects component/service/lib separation (Section 5)
 - respects shared context artifacts
 ```
 
@@ -284,8 +258,7 @@ Analyze similar parts of the codebase and determine whether your plan:
 Implement your plan and make sure your new tests pass.
 Always run tests to make sure you didn't break anything else.
 Always run npm run build on newly created files.
-Always run npx next lint and npx tsc --noEmit.
-After implementation, run muninn_file_add for each file created or significantly modified.
+Always run npm run lint and npx tsc --noEmit.
 ```
 
 ### QCHECK
@@ -303,11 +276,6 @@ Perform this analysis for every MAJOR code change you introduced:
 Add all changes to staging, create a commit, and push to remote.
 Follow Conventional Commits format.
 SHOULD NOT refer to Claude or Anthropic in the commit message.
-
-After commit:
-- muninn_file_add for each file significantly modified
-- muninn_decision_add for any architectural choices made this session
-- muninn_learn_add for patterns, gotchas, or preferences discovered
 ```
 
 ---
@@ -361,13 +329,12 @@ Include file path, line number, and specific issue.
 ```
 Diagnostic-first debugging. Do NOT make any changes.
 
-1. Run muninn_query to check for known issues related to the bug
-2. Read the full file(s) involved
-3. Check Supabase table/column names against lib/supabase/types.ts
-4. Check for Supabase silent failures (empty arrays, null from .single())
-5. Check Edge Function responses (status codes, error body)
-6. Verify Supabase Realtime subscription filters
-7. Check if recent changes could have caused the issue (git log)
+1. Read the full file(s) involved
+2. Check Supabase table/column names against lib/supabase/types.ts
+3. Check for Supabase silent failures (empty arrays, null from .single())
+4. Check Edge Function responses (status codes, error body)
+5. Verify Supabase Realtime subscription filters
+6. Check if recent changes could have caused the issue (git log)
 
 REPORT diagnosis before proposing any fix. Include:
 - Root cause (confirmed or likely)
@@ -407,6 +374,28 @@ For the UI change I just made, verify:
 
 ---
 
+## Reflect Shortcuts
+
+### /REFLECT
+```
+Analyze this session for corrections, approvals, and patterns.
+Classify each signal as HIGH/MEDIUM/LOW confidence.
+Match signals to relevant skill files.
+Propose changes with confidence levels.
+Wait for approval before editing any files.
+Tag each learning as scope:system or scope:personal.
+```
+
+### REFLECT ON / REFLECT OFF / REFLECT STATUS
+```
+Toggle and check automatic session-end reflection.
+- "reflect on" -- Enable automatic session-end analysis
+- "reflect off" -- Disable automatic session-end analysis
+- "reflect status" -- Show whether automatic reflection is enabled
+```
+
+---
+
 ## Model Routing
 
 | Tier | Model | Use For |
@@ -419,7 +408,7 @@ For the UI change I just made, verify:
 **TRY LOCALLY:** Form components, service function stubs, utility functions. Escalate if logic is complex.
 **NEVER LOCAL:** Assessment pipeline logic, Supabase Edge Function integration, security-sensitive code, multi-file refactors.
 
-**QROUTE:** When unsure which tier, describe the task and routing will be suggested. Record routing preference with `muninn_learn_add` (category: "preference").
+**QROUTE:** When unsure which tier, describe the task and routing will be suggested.
 
 ---
 

@@ -1,7 +1,7 @@
 # BeaconAI -- Roadmap
 
-**Last updated:** 2026-03-02
-**Status:** Production site live. CARE v2 assessment complete. SEO growth phase active.
+**Last updated:** 2026-03-06
+**Status:** Production site live. CARE v2 assessment complete. SEO optimization deployed. v5 docs aligned.
 
 ---
 
@@ -93,6 +93,8 @@
 | 2026-02 | DOMPurify + input sanitization | Security hardening for assessment results rendering |
 | 2026-02 | Supabase Realtime for assessment polling | Real-time UX during processing, fallback to manual polling |
 | 2026-03 | v4 documentation alignment | Reduce context window consumption, improve session quality |
+| 2026-03 | v5 documentation alignment | Deprecate Muninn, two-tier permissions, add Reflect skill |
+| 2026-03 | SEO/mobile/AI optimization | Dynamic sitemap, FAQ schema, llms.txt, AI crawlers, mobile fixes |
 
 ## Decisions Pending
 
