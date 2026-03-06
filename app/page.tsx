@@ -143,18 +143,20 @@ export default function HomePage() {
             Sources: RAND Corporation 2024 · Salesforce SMB Trends Report 2024
           </p>
 
-          <Link
-            href="/readiness-assessment"
-            className="inline-block bg-beacon-gold text-beacon-navy px-12 py-4 text-xl font-bold rounded-md hover:bg-beacon-gold/90 transition-all duration-300 hover:-translate-y-1 mr-6"
-          >
-            Get Your AI Readiness Score
-          </Link>
-          <a
-            href="#what-we-do"
-            className="inline-block bg-transparent text-white border-2 border-white px-8 py-4 text-lg font-semibold rounded-md hover:bg-white hover:text-beacon-navy transition-all duration-300"
-          >
-            Learn What We Do First
-          </a>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/readiness-assessment"
+              className="inline-block bg-beacon-gold text-beacon-navy px-8 py-4 text-lg font-bold rounded-md hover:bg-beacon-gold/90 transition-all duration-300 hover:-translate-y-1"
+            >
+              Get Your AI Readiness Score
+            </Link>
+            <a
+              href="#what-we-do"
+              className="inline-block bg-transparent text-white border-2 border-white px-8 py-4 text-lg font-semibold rounded-md hover:bg-white hover:text-beacon-navy transition-all duration-300"
+            >
+              Learn What We Do First
+            </a>
+          </div>
         </div>
       </section>
 
