@@ -1,0 +1,30 @@
+# beaconAI
+
+> AI Implementation & Strategy Consulting for Small and Mid-Sized Businesses
+
+beaconAI helps businesses with 10-500 employees implement AI that delivers real ROI. Founded by Dale Myska, a former Fortune 50 operations leader and MIT AI Executive Academy graduate.
+
+## Services
+
+- AI Readiness Assessment: Free 12-question assessment with instant AI readiness score and personalized report
+- AI Strategy Session: Free 30-minute consultation to review assessment results and identify highest-impact AI opportunities
+- AI Strategy & Roadmap Development: Custom implementation roadmap aligned to business objectives and budget
+- Process Mapping & AI Agent Deployment: Identify and automate biggest time-wasters with custom AI agents
+- AI Training & Workshops: Hands-on sessions to get teams comfortable and productive with AI tools
+- Fractional AI Leadership: Ongoing strategic AI guidance without the full-time cost
+
+## Key Pages
+
+- Homepage: https://beaconai.ai
+- About: https://beaconai.ai/about
+- AI Readiness Assessment: https://beaconai.ai/readiness-assessment
+- Contact: https://beaconai.ai/contact
+- Blog: https://beaconai.ai/blog
+
+## Contact
+
+- Email: dale@beaconai.ai
+- Phone: (303) 569-7732
+- Book a call: https://app.usemotion.com/meet/dalemyska/consultation
+- LinkedIn (Dale Myska): https://www.linkedin.com/in/dalemyska/
+- LinkedIn (beaconAI): https://www.linkedin.com/company/beaconai-ai
