@@ -50,6 +50,7 @@ Disallow: /private/
 Disallow: /internal/
 Disallow: /dev/
 Disallow: /temp/
+Disallow: /tdgseo
 
 # Allow essential assets
 Allow: /*.js$
