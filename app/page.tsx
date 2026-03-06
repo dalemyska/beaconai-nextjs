@@ -24,6 +24,67 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
+    <>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "How much does this cost?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Every engagement starts with a free AI Readiness Assessment and a 30-minute strategy call. From there, services range from one-time strategy sessions to ongoing fractional AI leadership. I will give you a clear scope and investment before any commitment.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "We are a small company. Is AI really for us?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "That is exactly who I work with. Small and mid-sized businesses with 10-500 employees are my focus. You do not need enterprise budgets or a technical team. You need the right strategy for your size.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "We tried AI tools and they did not stick. Can you help?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "This is one of the most common problems I solve. Most AI failures are not about the technology. They are about change management, unclear goals, or skipping the strategy step. I help businesses get unstuck and get results from what they have already invested in.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How long does an AI implementation take?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "It depends on scope, but most clients see initial results within 30-60 days. I focus on quick wins first to build momentum, then scale from there.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Do you replace our existing tools or team?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "No. I work with what you have. The goal is to make your current team more effective, not to replace them. AI should handle the repetitive work so your people can focus on higher-value tasks.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What industries do you work with?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "I specialize in franchise organizations, professional service firms, and SMB operations teams. My background includes 15+ years of operations leadership at companies like PostNet and MBE Worldwide, plus completion of MIT's AI Executive Academy.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
     <main className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="bg-beacon-navy text-white py-24 text-center">
@@ -499,5 +560,6 @@ export default function HomePage() {
       </section>
 
     </main>
+    </>
   );
 }
