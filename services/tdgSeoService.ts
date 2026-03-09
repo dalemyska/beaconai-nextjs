@@ -134,20 +134,34 @@ export async function fetchKBStats(): Promise<KBStats> {
  * Trigger KB crawl/reindex
  */
 export async function refreshKnowledgeBase(): Promise<{ indexed: number; updated: number }> {
-  const response = await fetch(`${EDGE_FUNCTION_BASE}/tdg-crawl-kb`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'apikey': SUPABASE_ANON_KEY,
-      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-    },
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 120000);
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({ error: response.statusText }));
-    throw new Error(errorData.error || `Crawl failed: ${response.statusText}`);
+  try {
+    const response = await fetch(`${EDGE_FUNCTION_BASE}/tdg-crawl-kb`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+      },
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({ error: response.statusText }));
+      throw new Error(errorData.error || `Crawl failed: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return { indexed: data?.stats?.indexed || 0, updated: data?.stats?.updated || 0 };
+  } catch (error: unknown) {
+    clearTimeout(timeoutId);
+    if (error instanceof Error && error.name === 'AbortError') {
+      throw new Error('KB crawl timed out. Please try again.');
+    }
+    throw error;
   }
-
-  const data = await response.json();
-  return { indexed: data?.stats?.indexed || 0, updated: data?.stats?.updated || 0 };
 }

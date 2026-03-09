@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { CheckCircle, BookOpen, Copy, Eye, Code } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import DOMPurify from 'dompurify';
 import { useToast } from '@/hooks/use-toast';
 import { MarkdownRenderer } from './MarkdownRenderer';
 import type { ValidationResult } from './types';
@@ -34,6 +35,17 @@ function extractHtml(content: string): string {
   if (htmlMatch) return htmlMatch[1];
 
   return trimmed;
+}
+
+/** Sanitize landing page HTML: allow full structure but strip scripts and event handlers */
+function sanitizeLandingPageHtml(html: string): string {
+  return DOMPurify.sanitize(html, {
+    WHOLE_DOCUMENT: true,
+    ADD_TAGS: ['style', 'link', 'meta'],
+    ADD_ATTR: ['target', 'rel', 'style', 'class', 'id', 'name', 'content', 'property', 'charset', 'viewport'],
+    FORBID_TAGS: ['script'],
+    FORBID_ATTR: ['onerror', 'onload', 'onclick', 'onmouseover', 'onfocus', 'onblur'],
+  });
 }
 
 export function TDGResults({ results, promptKey, usedKB, validation }: TDGResultsProps) {
@@ -96,7 +108,7 @@ export function TDGResults({ results, promptKey, usedKB, validation }: TDGResult
         {isLandingPage && showPreview ? (
           <div className="rounded-lg border-2 overflow-hidden" style={{ borderColor: '#E5E7EB' }}>
             <iframe
-              srcDoc={extractHtml(results)}
+              srcDoc={sanitizeLandingPageHtml(extractHtml(results))}
               title="Landing Page Preview"
               className="w-full bg-white"
               style={{ height: '800px', border: 'none' }}
