@@ -51,7 +51,7 @@ const CallToActionSection = () => {
           </div>
 
           <Button asChild size="lg" className="bg-beacon-gold hover:bg-beacon-gold/90 text-beacon-navy font-montserrat font-semibold px-8 py-4">
-            <Link href="/book-consultation">
+            <Link href="/contact">
               Schedule Your Executive Brief →
             </Link>
           </Button>

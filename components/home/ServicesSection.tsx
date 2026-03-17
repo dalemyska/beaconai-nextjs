@@ -18,7 +18,7 @@ const ServicesSection = () => {
       ],
       investment: "$1,500",
       cta: "Book Your Session",
-      link: "/book-consultation"
+      link: "/contact"
     },
     {
       title: "AI Discovery Sprint",

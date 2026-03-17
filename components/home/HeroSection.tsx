@@ -67,12 +67,12 @@ const HeroSection = () => {
                 size="lg"
                 className="bg-beacon-gold hover:bg-beacon-gold/90 text-beacon-navy font-montserrat font-semibold px-8 py-4 text-base"
               >
-                <Link href="/book-consultation">
+                <Link href="/contact">
                   Get Your AI Strategy Session
                 </Link>
               </Button>
               <Link
-                href="/approach"
+                href="/about"
                 className="text-white hover:text-beacon-gold transition-colors font-sourceSansPro underline text-base self-center"
               >
                 See How I Work →

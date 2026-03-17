@@ -49,27 +49,6 @@ export const getBlogPosts = async (limit?: number): Promise<BlogPost[]> => {
   }
 };
 
-export const getFeaturedPosts = async (limit = 3): Promise<BlogPost[]> => {
-  try {
-    const { data, error } = await blogTable()
-      .select('*')
-      .eq('published', true)
-      .eq('featured', true)
-      .order('published_at', { ascending: false })
-      .limit(limit);
-
-    if (error) {
-      console.log('Featured posts not available yet');
-      return [];
-    }
-
-    return data || [];
-  } catch (error) {
-    console.log('Blog functionality not ready yet');
-    return [];
-  }
-};
-
 export const getPaginatedBlogPosts = async (
   page: number = 1,
   pageSize: number = 8,
@@ -205,42 +184,3 @@ export const getBlogCategories = async (): Promise<string[]> => {
   }
 };
 
-export const getPostsByCategory = async (category: string): Promise<BlogPost[]> => {
-  try {
-    const { data, error } = await blogTable()
-      .select('*')
-      .eq('category', category)
-      .eq('published', true)
-      .order('published_at', { ascending: false });
-
-    if (error) {
-      console.log('Blog posts by category not available yet');
-      return [];
-    }
-
-    return data || [];
-  } catch (error) {
-    console.log('Blog functionality not ready yet');
-    return [];
-  }
-};
-
-export const getPostsByTags = async (tags: string[]): Promise<BlogPost[]> => {
-  try {
-    const { data, error } = await blogTable()
-      .select('*')
-      .overlaps('tags', tags)
-      .eq('published', true)
-      .order('published_at', { ascending: false });
-
-    if (error) {
-      console.log('Blog posts by tags not available yet:', error);
-      return [];
-    }
-
-    return data || [];
-  } catch (error) {
-    console.log('Blog functionality not ready yet:', error);
-    return [];
-  }
-};

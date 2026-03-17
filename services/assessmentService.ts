@@ -1,3 +1,5 @@
+import { sanitizeInput, sanitizeEmail } from '@/utils/inputSanitization';
+
 export interface CareAssessmentInsert {
   user_name: string;
   user_email: string;
@@ -73,6 +75,17 @@ export const submitAssessment = async (data: CareAssessmentInsert): Promise<stri
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 30000);
 
+  // Sanitize user-provided string fields before sending to Edge Function
+  const sanitizedData: CareAssessmentInsert = {
+    ...data,
+    user_name: sanitizeInput(data.user_name),
+    user_email: sanitizeEmail(data.user_email),
+    company_name: sanitizeInput(data.company_name),
+    company_website: sanitizeInput(data.company_website),
+    user_role: sanitizeInput(data.user_role),
+    industry: data.industry ? sanitizeInput(data.industry) : undefined,
+  };
+
   try {
     const response = await fetch(`${EDGE_FUNCTION_BASE}/submit-assessment`, {
       method: 'POST',
@@ -80,7 +93,7 @@ export const submitAssessment = async (data: CareAssessmentInsert): Promise<stri
         'Content-Type': 'application/json',
         'apikey': SUPABASE_ANON_KEY,
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(sanitizedData),
       signal: controller.signal
     });
 

@@ -1,4 +1,5 @@
 import type { GenerateResult, KBStats } from '@/components/tdgseo/types';
+import { sanitizeInput } from '@/utils/inputSanitization';
 
 const EDGE_FUNCTION_BASE = `${process.env.NEXT_PUBLIC_SUPABASE_URL!}/functions/v1`;
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
@@ -21,6 +22,10 @@ export async function generateSeoContent(
     : controller.signal;
 
   try {
+    const sanitizedInputs = Object.fromEntries(
+      Object.entries(inputs).map(([k, v]) => [k, sanitizeInput(v)])
+    );
+
     const response = await fetch(`${EDGE_FUNCTION_BASE}/tdg-seo-generate`, {
       method: 'POST',
       headers: {
@@ -28,7 +33,7 @@ export async function generateSeoContent(
         'apikey': SUPABASE_ANON_KEY,
         'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
       },
-      body: JSON.stringify({ promptType, inputs, includeKB }),
+      body: JSON.stringify({ promptType, inputs: sanitizedInputs, includeKB }),
       signal: combinedSignal,
     });
 
@@ -75,6 +80,10 @@ export async function generateSeoContentStream(
     : controller.signal;
 
   try {
+    const sanitizedInputs = Object.fromEntries(
+      Object.entries(inputs).map(([k, v]) => [k, sanitizeInput(v)])
+    );
+
     const response = await fetch(`${EDGE_FUNCTION_BASE}/tdg-seo-generate?stream=true`, {
       method: 'POST',
       headers: {
@@ -82,7 +91,7 @@ export async function generateSeoContentStream(
         'apikey': SUPABASE_ANON_KEY,
         'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
       },
-      body: JSON.stringify({ promptType, inputs, includeKB }),
+      body: JSON.stringify({ promptType, inputs: sanitizedInputs, includeKB }),
       signal: combinedSignal,
     });
 

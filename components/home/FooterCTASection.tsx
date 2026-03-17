@@ -32,7 +32,7 @@ const FooterCTASection = () => {
               size="lg"
               className="bg-beacon-gold hover:bg-beacon-gold/90 text-beacon-navy text-lg px-8 py-6 rounded-md shadow-lg"
             >
-              <Link href="/book-consultation">
+              <Link href="/contact">
                 <Calendar className="mr-2 h-5 w-5" />
                 Schedule Consultation
               </Link>
