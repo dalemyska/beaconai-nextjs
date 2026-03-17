@@ -35,7 +35,8 @@ const Header = memo(() => {
   const navItems = [
     { path: '/', label: 'Home' },
     { path: '/about', label: 'About' },
-    { path: '/readiness-assessment', label: 'AI Assessment' }
+    { path: '/readiness-assessment', label: 'AI Assessment' },
+    { path: '/blog', label: 'Blog' }
   ];
 
   return (
